@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// Stores historical and current gold/silver rates
+model MarketRate {
+  id        String   @id @default(cuid())
+  type      String   // "GOLD_24K", "GOLD_22K", "GOLD_21K", "GOLD_18K", "SILVER"
+  priceAED  Float
+  priceINR  Float
+  timestamp DateTime @default(now())
+
+  @@index([type, timestamp])
+}
+
+// Stores the latest currency exchange rate for quick access
+model ExchangeRate {
+  id        String   @id @default(cuid())
+  currency  String   @unique // e.g., "AED_INR"
+  rate      Float
+  updatedAt DateTime @updatedAt
+}
