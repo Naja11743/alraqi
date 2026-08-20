@@ -29,9 +29,9 @@ export function BillAnalyzer() {
   const status = getStatus();
 
   return (
-    <div className="bg-[var(--background)] border border-black/5 rounded-2xl p-6 md:p-8 h-full flex flex-col">
+    <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-white/5 rounded-lg border border-black/5">
+        <div className="p-2 bg-black/5 rounded-lg border border-white/10">
           <SearchCode className="w-5 h-5 text-[var(--color-gold-400)]" />
         </div>
         <h2 className="text-xl font-serif text-[var(--color-gold-300)] tracking-wide">
@@ -39,7 +39,7 @@ export function BillAnalyzer() {
         </h2>
       </div>
       
-      <p className="text-sm text-gray-600 mb-6">
+      <p className="text-sm text-gray-400 mb-6">
         Audit your purchase bill against live market rates to understand the premiums you paid.
       </p>
 
@@ -50,11 +50,11 @@ export function BillAnalyzer() {
           <select 
             value={karat}
             onChange={(e) => setKarat(parseInt(e.target.value))}
-            className="w-full bg-white/5 border border-black/5 rounded-lg p-2 text-sm text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)]"
+            className="w-full bg-black/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-[var(--color-gold-500)]"
           >
-            <option value={24} className="bg-white">24K</option>
-            <option value={22} className="bg-white">22K</option>
-            <option value={18} className="bg-white">18K</option>
+            <option value={24} className="bg-black">24K</option>
+            <option value={22} className="bg-black">22K</option>
+            <option value={18} className="bg-black">18K</option>
           </select>
         </div>
         <div>
@@ -63,7 +63,7 @@ export function BillAnalyzer() {
             type="number"
             value={weight}
             onChange={(e) => setWeight(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white/5 border border-black/5 rounded-lg p-2 text-sm text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)] font-mono"
+            className="w-full bg-black/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-[var(--color-gold-500)] font-mono"
           />
         </div>
         <div>
@@ -72,23 +72,23 @@ export function BillAnalyzer() {
             type="number"
             value={billTotal}
             onChange={(e) => setBillTotal(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white/5 border border-black/5 rounded-lg p-2 text-sm text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)] font-mono"
+            className="w-full bg-black/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-[var(--color-gold-500)] font-mono"
           />
         </div>
       </div>
 
       {/* Analysis Results */}
-      <div className="bg-white/60 border border-black/5 rounded-xl p-5 mb-6">
-        <div className="flex justify-between items-center mb-4 pb-4 border-b border-black/5">
-          <span className="text-gray-600 text-sm">Raw Gold Market Value</span>
-          <span className="text-gray-900 font-mono font-medium">AED {rawMaterialValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+      <div className="bg-black/40 border border-white/10 rounded-xl p-5 mb-6">
+        <div className="flex justify-between items-center mb-4 pb-4 border-b border-white/10">
+          <span className="text-gray-400 text-sm">Raw Gold Market Value</span>
+          <span className="text-white font-mono font-medium">AED {rawMaterialValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </div>
-        <div className="flex justify-between items-center mb-4 pb-4 border-b border-black/5">
-          <span className="text-gray-600 text-sm">Estimated Fair Retail (incl. charges/tax)</span>
-          <span className="text-gray-900 font-mono font-medium">AED {estimatedFairPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+        <div className="flex justify-between items-center mb-4 pb-4 border-b border-white/10">
+          <span className="text-gray-400 text-sm">Estimated Fair Retail (incl. charges/tax)</span>
+          <span className="text-white font-mono font-medium">AED {estimatedFairPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-gray-600 text-sm">Actual Bill Amount</span>
+          <span className="text-gray-400 text-sm">Actual Bill Amount</span>
           <span className="text-[var(--color-gold-400)] font-mono font-bold text-lg">AED {billTotal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </div>
       </div>
@@ -100,12 +100,12 @@ export function BillAnalyzer() {
             {premiumPercent.toFixed(1)}%
           </div>
         </div>
-        <div className={`text-xs font-semibold px-3 py-1.5 rounded-full bg-white/50 ${status.color}`}>
+        <div className={`text-xs font-semibold px-3 py-1.5 rounded-full bg-black/50 ${status.color}`}>
           {status.label}
         </div>
       </div>
 
-      <div className="text-[10px] text-gray-600 mt-4 text-center">
+      <div className="text-[10px] text-gray-400 mt-4 text-center">
         * This is an algorithmic estimate based on industry averages (15% making charge, 5% tax). It does not authenticate the physical gold.
       </div>
     </div>

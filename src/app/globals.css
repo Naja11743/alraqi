@@ -30,10 +30,10 @@
 }
 
 :root {
-  --background: #fdfbf7;
-  --foreground: #1c1917;
-  --panel: rgba(255, 255, 255, 0.7);
-  --panel-border: rgba(212, 160, 28, 0.3);
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.1);
 }
 
 html {

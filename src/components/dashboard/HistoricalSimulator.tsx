@@ -42,7 +42,7 @@ export function HistoricalSimulator() {
   const goldPurchased = investment / historicalPricePerGram;
 
   return (
-    <div className="bg-[var(--background)] border border-black/5 rounded-2xl p-6 md:p-8 h-full flex flex-col">
+    <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col">
       <h2 className="text-xl font-serif text-[var(--color-gold-300)] tracking-wide mb-6">
         WHAT IF I BOUGHT GOLD?
       </h2>
@@ -55,7 +55,7 @@ export function HistoricalSimulator() {
             type="number"
             value={investment}
             onChange={(e) => setInvestment(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white/5 border border-black/5 rounded-lg p-2.5 text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)] font-mono"
+            className="w-full bg-black/5 border border-white/10 rounded-lg p-2.5 text-white focus:outline-none focus:border-[var(--color-gold-500)] font-mono"
           />
         </div>
         <div className="flex-1">
@@ -63,10 +63,10 @@ export function HistoricalSimulator() {
           <select 
             value={startYear}
             onChange={(e) => setStartYear(parseInt(e.target.value))}
-            className="w-full bg-white/5 border border-black/5 rounded-lg p-2.5 text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)] font-mono appearance-none"
+            className="w-full bg-black/5 border border-white/10 rounded-lg p-2.5 text-white focus:outline-none focus:border-[var(--color-gold-500)] font-mono appearance-none"
           >
             {[2010, 2012, 2015, 2018, 2020].map(y => (
-              <option key={y} value={y} className="bg-white">{y}</option>
+              <option key={y} value={y} className="bg-black">{y}</option>
             ))}
           </select>
         </div>
@@ -76,7 +76,7 @@ export function HistoricalSimulator() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="border-l-2 border-gray-600 pl-3">
           <div className="text-xs text-gray-500 uppercase tracking-widest mb-1">Gold Acquired</div>
-          <div className="text-gray-900 font-mono">{goldPurchased.toFixed(2)}g</div>
+          <div className="text-white font-mono">{goldPurchased.toFixed(2)}g</div>
         </div>
         <div className="border-l-2 border-gray-600 pl-3">
           <div className="text-xs text-gray-500 uppercase tracking-widest mb-1">Value ({currentYear})</div>
@@ -121,7 +121,7 @@ export function HistoricalSimulator() {
         </ResponsiveContainer>
       </div>
       
-      <div className="text-[10px] text-gray-600 mt-4 text-center">
+      <div className="text-[10px] text-gray-400 mt-4 text-center">
         * Hypothetical historical calculation based on average spot prices. Does not include past premiums or taxes.
       </div>
     </div>

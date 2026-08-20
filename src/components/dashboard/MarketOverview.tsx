@@ -33,9 +33,9 @@ export function MarketOverview() {
           <h2 className="text-2xl font-serif text-[var(--color-gold-300)] tracking-wide">
             GOLD MARKET OVERVIEW
           </h2>
-          <p className="text-sm text-gray-600 mt-1">Live spot prices and intraday momentum.</p>
+          <p className="text-sm text-gray-400 mt-1">Live spot prices and intraday momentum.</p>
         </div>
-        <div className="hidden sm:flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-3 py-1.5 rounded-full border border-black/5">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-gray-500 bg-black/5 px-3 py-1.5 rounded-full border border-white/10">
           <Clock size={14} />
           <span>Last Updated: {new Date().toLocaleTimeString()}</span>
         </div>
@@ -45,7 +45,7 @@ export function MarketOverview() {
         {marketData.map((item) => (
           <div 
             key={item.id}
-            className="group relative bg-[var(--background)] border border-black/5 rounded-xl p-5 hover:border-[var(--color-gold-500)] transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,160,28,0.1)] cursor-pointer overflow-hidden"
+            className="group relative bg-[#0a0a0a] border border-white/10 rounded-xl p-5 hover:border-[var(--color-gold-500)] transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,160,28,0.1)] cursor-pointer overflow-hidden"
           >
             {/* Sparkline Background */}
             <div className="absolute bottom-0 left-0 right-0 h-16 opacity-20 pointer-events-none group-hover:opacity-40 transition-opacity">
@@ -65,9 +65,9 @@ export function MarketOverview() {
             </div>
 
             <div className="relative z-10">
-              <div className="text-gray-600 text-xs font-semibold tracking-widest mb-2">{item.title}</div>
-              <div className="text-2xl font-mono text-gray-900">AED {item.price}<span className="text-sm text-gray-500">/g</span></div>
-              <div className="text-sm font-mono text-gray-600 mb-2">₹{(parseFloat(item.price.replace(',', '')) * 22.85).toLocaleString(undefined, { maximumFractionDigits: 0 })}<span className="text-xs text-gray-600">/g</span></div>
+              <div className="text-gray-400 text-xs font-semibold tracking-widest mb-2">{item.title}</div>
+              <div className="text-2xl font-mono text-white">AED {item.price}<span className="text-sm text-gray-500">/g</span></div>
+              <div className="text-sm font-mono text-gray-400 mb-2">₹{(parseFloat(item.price.replace(',', '')) * 22.85).toLocaleString(undefined, { maximumFractionDigits: 0 })}<span className="text-xs text-gray-400">/g</span></div>
 
               <div className={`flex items-center gap-1 text-sm font-medium ${item.isUp ? 'text-green-400' : 'text-red-400'}`}>
                 {item.isUp ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
@@ -75,22 +75,22 @@ export function MarketOverview() {
               </div>
 
               {/* Hover Details */}
-              <div className="mt-4 pt-4 border-t border-black/5 h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden text-xs space-y-2">
-                <div className="flex justify-between text-gray-600">
+              <div className="mt-4 pt-4 border-t border-white/10 h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden text-xs space-y-2">
+                <div className="flex justify-between text-gray-400">
                   <span>7-Day:</span>
                   <span className={item.isUp ? 'text-green-400' : 'text-red-400'}>{item.isUp ? '+3.1%' : '-1.2%'}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-400">
                   <span>30-Day:</span>
                   <span className={item.isUp ? 'text-green-400' : 'text-red-400'}>{item.isUp ? '+5.4%' : '-2.8%'}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-400">
                   <span>Per 10g (AED):</span>
-                  <span className="text-gray-900 font-mono">AED {(parseFloat(item.price.replace(',','')) * 10).toLocaleString()}</span>
+                  <span className="text-white font-mono">AED {(parseFloat(item.price.replace(',','')) * 10).toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-400">
                   <span>Per 10g (INR):</span>
-                  <span className="text-gray-900 font-mono">₹{((parseFloat(item.price.replace(',','')) * 10) * 22.85).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                  <span className="text-white font-mono">₹{((parseFloat(item.price.replace(',','')) * 10) * 22.85).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                 </div>
               </div>
             </div>

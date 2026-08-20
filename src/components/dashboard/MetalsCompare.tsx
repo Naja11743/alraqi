@@ -24,7 +24,7 @@ export function MetalsCompare() {
   if (!isMounted) return <div className="h-full min-h-[400px]"></div>;
 
   return (
-    <div className="bg-[var(--background)] border border-black/5 rounded-2xl p-6 md:p-8 h-full flex flex-col">
+    <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col">
       <h2 className="text-xl font-serif text-[var(--color-gold-300)] tracking-wide mb-6">
         PRECIOUS METALS COMPARE
       </h2>
@@ -33,7 +33,7 @@ export function MetalsCompare() {
       <div className="overflow-x-auto custom-scrollbar mb-8">
         <table className="w-full text-left text-sm whitespace-nowrap">
           <thead>
-            <tr className="border-b border-black/5 text-gray-500 font-medium">
+            <tr className="border-b border-white/10 text-gray-500 font-medium">
               <th className="pb-3 font-normal uppercase tracking-wider text-xs">Asset</th>
               <th className="pb-3 font-normal uppercase tracking-wider text-xs">Price</th>
               <th className="pb-3 font-normal uppercase tracking-wider text-xs">30D Return</th>
@@ -41,8 +41,8 @@ export function MetalsCompare() {
               <th className="pb-3 font-normal uppercase tracking-wider text-xs">Volatility</th>
             </tr>
           </thead>
-          <tbody className="text-gray-700">
-            <tr className="border-b border-black/5">
+          <tbody className="text-gray-300">
+            <tr className="border-b border-white/10">
               <td className="py-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[var(--color-gold-500)]" />
                 24K Gold
@@ -67,15 +67,15 @@ export function MetalsCompare() {
       </div>
 
       {/* Gold / Silver Ratio */}
-      <div className="flex-1 mt-auto bg-white/60 border border-black/5 rounded-xl p-4 md:p-6">
+      <div className="flex-1 mt-auto bg-black/40 border border-white/10 rounded-xl p-4 md:p-6">
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h3 className="text-sm text-gray-600 font-medium mb-1 uppercase tracking-widest">Gold/Silver Ratio</h3>
-            <div className="text-2xl font-mono text-gray-900">83.45</div>
+            <h3 className="text-sm text-gray-400 font-medium mb-1 uppercase tracking-widest">Gold/Silver Ratio</h3>
+            <div className="text-2xl font-mono text-white">83.45</div>
           </div>
           <div className="text-right">
             <div className="text-xs text-gray-500 uppercase tracking-widest mb-1">30D Avg</div>
-            <div className="text-sm font-mono text-gray-700">82.10</div>
+            <div className="text-sm font-mono text-gray-300">82.10</div>
           </div>
         </div>
 

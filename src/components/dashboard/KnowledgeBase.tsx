@@ -41,7 +41,7 @@ export function KnowledgeBase() {
         <h2 className="text-2xl font-serif text-[var(--color-gold-300)] tracking-wide">
           GOLD INTELLIGENCE
         </h2>
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="text-sm text-gray-400 mt-1">
           Essential macroeconomic drivers and market fundamentals every investor should know.
         </p>
       </div>
@@ -50,15 +50,15 @@ export function KnowledgeBase() {
         {knowledgeItems.map((item, index) => (
           <div 
             key={index} 
-            className="group bg-[var(--background)] border border-black/5 hover:border-[var(--color-gold-500)] rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_15px_rgba(212,160,28,0.05)] cursor-default"
+            className="group bg-[#0a0a0a] border border-white/10 hover:border-[var(--color-gold-500)] rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_15px_rgba(212,160,28,0.05)] cursor-default"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-white/5 rounded-lg border border-black/5 group-hover:bg-[var(--color-gold-900)]/30 transition-colors">
+              <div className="p-2 bg-black/5 rounded-lg border border-white/10 group-hover:bg-[var(--color-gold-900)]/30 transition-colors">
                 {item.icon}
               </div>
-              <h3 className="text-sm font-semibold text-gray-900 tracking-wide uppercase">{item.title}</h3>
+              <h3 className="text-sm font-semibold text-white tracking-wide uppercase">{item.title}</h3>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed font-light">
+            <p className="text-sm text-gray-400 leading-relaxed font-light">
               {item.description}
             </p>
           </div>

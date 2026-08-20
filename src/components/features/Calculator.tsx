@@ -28,11 +28,11 @@ export function Calculator() {
       
       <div className="space-y-4">
         <div>
-          <label className="block text-sm text-gray-600 mb-1">Select Karat</label>
+          <label className="block text-sm text-gray-400 mb-1">Select Karat</label>
           <select 
             value={karat}
             onChange={(e) => setKarat(e.target.value)}
-            className="w-full bg-white/50 border border-[var(--panel-border)] rounded-lg p-2.5 text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)]"
+            className="w-full bg-black/50 border border-[var(--panel-border)] rounded-lg p-2.5 text-white focus:outline-none focus:border-[var(--color-gold-500)]"
           >
             {Object.keys(rates).map(k => (
               <option key={k} value={k}>{k}</option>
@@ -41,32 +41,32 @@ export function Calculator() {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600 mb-1">Weight (Grams)</label>
+          <label className="block text-sm text-gray-400 mb-1">Weight (Grams)</label>
           <input 
             type="number"
             value={weight}
             onChange={(e) => setWeight(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white/50 border border-[var(--panel-border)] rounded-lg p-2.5 text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)]"
+            className="w-full bg-black/50 border border-[var(--panel-border)] rounded-lg p-2.5 text-white focus:outline-none focus:border-[var(--color-gold-500)]"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600 mb-1">Making Charge per Gram (AED)</label>
+          <label className="block text-sm text-gray-400 mb-1">Making Charge per Gram (AED)</label>
           <input 
             type="number"
             value={makingCharge}
             onChange={(e) => setMakingCharge(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white/50 border border-[var(--panel-border)] rounded-lg p-2.5 text-gray-900 focus:outline-none focus:border-[var(--color-gold-500)]"
+            className="w-full bg-black/50 border border-[var(--panel-border)] rounded-lg p-2.5 text-white focus:outline-none focus:border-[var(--color-gold-500)]"
           />
         </div>
 
         <div className="pt-6 mt-6 border-t border-[var(--panel-border)]">
           <div className="flex justify-between mb-2">
-            <span className="text-gray-600">Gold Value:</span>
+            <span className="text-gray-400">Gold Value:</span>
             <span>AED {goldValue.toFixed(2)}</span>
           </div>
           <div className="flex justify-between mb-2">
-            <span className="text-gray-600">Total Making Charge:</span>
+            <span className="text-gray-400">Total Making Charge:</span>
             <span>AED {totalMakingCharge.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-xl text-[var(--color-gold-400)] font-semibold mt-4">

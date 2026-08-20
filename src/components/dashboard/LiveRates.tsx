@@ -39,16 +39,16 @@ export function LiveRates() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-3xl font-serif text-[var(--color-gold-300)] tracking-wide mb-2 uppercase">Current Gold Rates</h2>
-          <div className="flex items-center gap-2 text-xs font-mono bg-white/5 border border-black/5 px-3 py-1.5 rounded-full w-fit">
+          <div className="flex items-center gap-2 text-xs font-mono bg-black/5 border border-white/10 px-3 py-1.5 rounded-full w-fit">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span className="text-green-500 font-bold tracking-wider">LIVE</span>
-            {rates && <span className="text-gray-600 ml-2 border-l border-black/10 pl-2">Updated: {new Date(rates.timestamp).toLocaleTimeString()}</span>}
+            {rates && <span className="text-gray-400 ml-2 border-l border-white/20 pl-2">Updated: {new Date(rates.timestamp).toLocaleTimeString()}</span>}
           </div>
         </div>
       </div>
 
       {loading || !rates || !exchange ? (
-        <div className="text-center text-gray-600 py-10 animate-pulse">Loading Live Rates...</div>
+        <div className="text-center text-gray-400 py-10 animate-pulse">Loading Live Rates...</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {displayPurities.map(karat => {
@@ -60,7 +60,7 @@ export function LiveRates() {
 
             return (
               <GlassPanel key={karat} className="flex flex-col p-6 hover:border-[var(--color-gold-500)] transition-colors duration-300">
-                <div className="text-center border-b border-black/5 pb-4 mb-4">
+                <div className="text-center border-b border-white/10 pb-4 mb-4">
                   <span className="text-lg text-[var(--color-gold-400)] font-bold tracking-widest">{karat} Gold</span>
                 </div>
                 
@@ -69,27 +69,27 @@ export function LiveRates() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xl" title="UAE">🇦🇪</span>
-                      <span className="text-sm font-semibold text-gray-900 tracking-widest">AED</span>
+                      <span className="text-sm font-semibold text-white tracking-widest">AED</span>
                     </div>
-                    <span className="text-2xl font-bold text-gray-900 font-mono">{aedPrice.toFixed(2)}</span>
+                    <span className="text-2xl font-bold text-white font-mono">{aedPrice.toFixed(2)}</span>
                   </div>
 
                   {/* INR */}
                   <div className="flex items-center justify-between opacity-80">
                     <div className="flex items-center gap-2">
                       <span className="text-lg" title="India">🇮🇳</span>
-                      <span className="text-xs font-medium text-gray-700 tracking-widest">INR</span>
+                      <span className="text-xs font-medium text-gray-300 tracking-widest">INR</span>
                     </div>
-                    <span className="text-lg text-gray-700 font-mono">₹{inrPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                    <span className="text-lg text-gray-300 font-mono">₹{inrPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                   </div>
 
                   {/* EUR */}
                   <div className="flex items-center justify-between opacity-80">
                     <div className="flex items-center gap-2">
                       <span className="text-lg" title="Europe">🇪🇺</span>
-                      <span className="text-xs font-medium text-gray-700 tracking-widest">EUR</span>
+                      <span className="text-xs font-medium text-gray-300 tracking-widest">EUR</span>
                     </div>
-                    <span className="text-lg text-gray-700 font-mono">€{eurPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    <span className="text-lg text-gray-300 font-mono">€{eurPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
                   </div>
                 </div>
               </GlassPanel>

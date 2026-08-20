@@ -44,7 +44,7 @@ export function AdvancedChart() {
 
   return (
     <div id="analytics" className="py-16">
-      <div className="bg-[var(--background)] border border-black/5 rounded-2xl p-6 md:p-8">
+      <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8">
         
         {/* Header & Controls */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
@@ -53,7 +53,7 @@ export function AdvancedChart() {
               GOLD PRICE PERFORMANCE
             </h2>
             <div className="flex items-end gap-3">
-              <span className="text-3xl font-mono text-gray-900">AED {currentPrice.toLocaleString()}</span>
+              <span className="text-3xl font-mono text-white">AED {currentPrice.toLocaleString()}</span>
               <span className={`text-lg font-medium mb-1 ${parseFloat(percentChange) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                 {parseFloat(percentChange) >= 0 ? '+' : ''}{percentChange}%
               </span>
@@ -62,12 +62,12 @@ export function AdvancedChart() {
 
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Karat Selector */}
-            <div className="flex bg-white/5 p-1 rounded-lg border border-black/5">
+            <div className="flex bg-black/5 p-1 rounded-lg border border-white/10">
               {['24K', '22K', '21K', '18K'].map(k => (
                 <button
                   key={k}
                   onClick={() => setKarat(k)}
-                  className={`px-4 py-1.5 rounded-md text-sm transition-colors ${karat === k ? 'bg-[var(--color-gold-600)] text-black font-semibold shadow-md' : 'text-gray-600 hover:text-gray-900'}`}
+                  className={`px-4 py-1.5 rounded-md text-sm transition-colors ${karat === k ? 'bg-[var(--color-gold-600)] text-black font-semibold shadow-md' : 'text-gray-400 hover:text-white'}`}
                 >
                   {k}
                 </button>
@@ -75,12 +75,12 @@ export function AdvancedChart() {
             </div>
 
             {/* Timeframe Selector */}
-            <div className="flex bg-white/5 p-1 rounded-lg border border-black/5 overflow-x-auto custom-scrollbar">
+            <div className="flex bg-black/5 p-1 rounded-lg border border-white/10 overflow-x-auto custom-scrollbar">
               {['1D', '7D', '30D', '6M', '1Y', '5Y'].map(t => (
                 <button
                   key={t}
                   onClick={() => setTimeframe(t)}
-                  className={`px-3 py-1.5 rounded-md text-sm transition-colors whitespace-nowrap ${timeframe === t ? 'bg-white/10 text-gray-900 font-medium' : 'text-gray-600 hover:text-gray-900'}`}
+                  className={`px-3 py-1.5 rounded-md text-sm transition-colors whitespace-nowrap ${timeframe === t ? 'bg-black/10 text-white font-medium' : 'text-gray-400 hover:text-white'}`}
                 >
                   {t}
                 </button>
@@ -91,21 +91,21 @@ export function AdvancedChart() {
 
         {/* Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white/50 p-4 rounded-xl border border-black/5">
+          <div className="bg-black/50 p-4 rounded-xl border border-white/10">
             <div className="text-gray-500 text-xs uppercase tracking-widest mb-1">Highest</div>
-            <div className="text-gray-900 font-mono">AED {high.toLocaleString()}</div>
+            <div className="text-white font-mono">AED {high.toLocaleString()}</div>
           </div>
-          <div className="bg-white/50 p-4 rounded-xl border border-black/5">
+          <div className="bg-black/50 p-4 rounded-xl border border-white/10">
             <div className="text-gray-500 text-xs uppercase tracking-widest mb-1">Lowest</div>
-            <div className="text-gray-900 font-mono">AED {low.toLocaleString()}</div>
+            <div className="text-white font-mono">AED {low.toLocaleString()}</div>
           </div>
-          <div className="bg-white/50 p-4 rounded-xl border border-black/5">
+          <div className="bg-black/50 p-4 rounded-xl border border-white/10">
             <div className="text-gray-500 text-xs uppercase tracking-widest mb-1">Average</div>
-            <div className="text-gray-900 font-mono">AED {avg.toLocaleString()}</div>
+            <div className="text-white font-mono">AED {avg.toLocaleString()}</div>
           </div>
-          <div className="bg-white/50 p-4 rounded-xl border border-black/5">
+          <div className="bg-black/50 p-4 rounded-xl border border-white/10">
             <div className="text-gray-500 text-xs uppercase tracking-widest mb-1">Volatility</div>
-            <div className="text-gray-900 font-mono">Medium</div>
+            <div className="text-white font-mono">Medium</div>
           </div>
         </div>
 

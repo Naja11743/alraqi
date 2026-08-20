@@ -35,15 +35,15 @@ export function MarketHeatmap() {
   if (!isMounted) return <div className="h-full min-h-[300px]"></div>;
 
   return (
-    <div className="bg-[var(--background)] border border-black/5 rounded-2xl p-6 md:p-8 h-full flex flex-col">
+    <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col">
       <div className="flex justify-between items-start mb-6">
         <h2 className="text-xl font-serif text-[var(--color-gold-300)] tracking-wide">
           MARKET HEATMAP (90D)
         </h2>
         
         {/* Selected Day Info */}
-        <div className="text-right bg-white/5 border border-black/5 p-3 rounded-lg min-w-[140px]">
-          <div className="text-xs text-gray-600 mb-1">
+        <div className="text-right bg-black/5 border border-white/10 p-3 rounded-lg min-w-[140px]">
+          <div className="text-xs text-gray-400 mb-1">
             {format(selectedDay.date, 'MMM dd, yyyy')}
           </div>
           <div className={`font-mono font-semibold ${selectedDay.movement >= 0 ? 'text-green-400' : 'text-red-400'}`}>
