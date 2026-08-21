@@ -65,6 +65,10 @@ export function Header() {
 
           {/* Navigation - Desktop */}
           <nav className="hidden xl:flex items-center gap-8 text-sm tracking-wide text-gray-400">
+            <Link href="/terminal" className="hover:text-white transition-colors py-2 text-[var(--color-gold-400)] font-medium flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+              Live Market
+            </Link>
             <a href="#market" className="hover:text-white transition-colors py-2">Market</a>
             <a href="#analytics" className="hover:text-white transition-colors py-2">Analytics</a>
             <a href="#compare" className="hover:text-white transition-colors py-2">Compare</a>
@@ -120,6 +124,10 @@ export function Header() {
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
           <nav className="xl:hidden absolute top-full left-0 right-0 bg-[#0a0a0a] border-b border-white/10 shadow-2xl flex flex-col p-4">
+            <Link href="/terminal" className="p-4 text-base tracking-wide text-[var(--color-gold-400)] hover:text-white hover:bg-white/5 rounded-xl transition-colors font-bold flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              Live Market
+            </Link>
             <a href="#market" className="p-4 text-base tracking-wide text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Market</a>
             <a href="#analytics" className="p-4 text-base tracking-wide text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Analytics</a>
             <a href="#compare" className="p-4 text-base tracking-wide text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Compare</a>
