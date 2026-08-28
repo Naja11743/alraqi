@@ -106,8 +106,8 @@ export function BullionTVDashboard() {
           <div className="flex-1 border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden min-h-[250px]">
             <div className="grid grid-cols-[30%_35%_35%] bg-[var(--color-gold-600)] text-black font-bold text-xs sm:text-sm py-2 sm:py-3 px-2 sm:px-4 items-center shadow-md">
               <span className="text-left tracking-widest uppercase">SPOT RATE</span>
-              <span className="text-center tracking-widest uppercase">BID</span>
-              <span className="text-center tracking-widest uppercase">ASK</span>
+              <span className="text-center tracking-widest uppercase border-l-2 border-black">BID</span>
+              <span className="text-center tracking-widest uppercase border-l-2 border-black">ASK</span>
             </div>
             
             <div className="flex-1 p-2 sm:p-4 flex flex-col justify-center gap-y-4 sm:gap-y-6 relative min-h-0">
@@ -130,7 +130,7 @@ export function BullionTVDashboard() {
                   <span className="text-2xl lg:text-3xl xl:text-4xl font-serif text-[var(--color-gold-300)] leading-none">GOLD</span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-[var(--color-gold-500)]/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
-                <div className="flex flex-col items-center px-1">
+                <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
                   <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid)}` : '...'}
                   </div>
@@ -139,7 +139,7 @@ export function BullionTVDashboard() {
                     <span className="text-red-400 font-mono font-medium">{rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.low)}` : '...'}</span>
                   </div>
                 </div>
-                <div className="flex flex-col items-center px-1">
+                <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
                   <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.ask)}` : '...'}
                   </div>
@@ -159,7 +159,7 @@ export function BullionTVDashboard() {
                   <span className="text-2xl lg:text-3xl xl:text-4xl font-serif text-gray-300 leading-none">SILVER</span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
-                <div className="flex flex-col items-center px-1">
+                <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
                   <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid, 3)}` : '...'}
                   </div>
@@ -168,7 +168,7 @@ export function BullionTVDashboard() {
                     <span className="text-red-400 font-mono font-medium">{rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.low, 3)}` : '...'}</span>
                   </div>
                 </div>
-                <div className="flex flex-col items-center px-1">
+                <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
                   <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.ask, 3)}` : '...'}
                   </div>
@@ -202,9 +202,9 @@ export function BullionTVDashboard() {
         <div className="flex-1 w-full border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden shadow-[0_0_15px_rgba(212,160,28,0.05)] h-full">
           <div className="flex bg-[var(--color-gold-600)] text-black font-bold text-[10px] sm:text-xs lg:text-sm uppercase py-2 sm:py-3 px-2 sm:px-4 lg:px-8 shadow-md">
             <span className="w-1/4 tracking-[0.1em] sm:tracking-widest">COMMODITY</span>
-            <span className="w-1/4 text-center tracking-[0.1em] sm:tracking-widest border-l border-black/20">WEIGHT</span>
-            <span className="w-1/4 text-right tracking-[0.1em] sm:tracking-widest border-l border-black/20">BUY <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold opacity-80">AED</span></span>
-            <span className="w-1/4 text-right tracking-[0.1em] sm:tracking-widest border-l border-black/20">SELL <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold opacity-80">AED</span></span>
+            <span className="w-1/4 text-center tracking-[0.1em] sm:tracking-widest border-l-2 border-black">WEIGHT</span>
+            <span className="w-1/4 text-center tracking-[0.1em] sm:tracking-widest border-l-2 border-black">BUY <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold opacity-80">AED</span></span>
+            <span className="w-1/4 text-right tracking-[0.1em] sm:tracking-widest border-l-2 border-black">SELL <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold opacity-80">AED</span></span>
           </div>
           
           <div className="flex-1 flex flex-col py-1 sm:py-2 lg:py-4 overflow-hidden min-h-[300px]">
@@ -230,9 +230,9 @@ export function BullionTVDashboard() {
                   <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-wide ${item.name === 'SILVER' ? 'text-gray-300' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500 font-mono tracking-wider">{item.detail}</span>
                 </div>
-                <div className="w-1/4 text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l border-[var(--color-gold-500)]/20 px-1 sm:px-2">{item.weight}</div>
-                <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l border-[var(--color-gold-500)]/20 px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy) : '...'}</div>
-                <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l border-[var(--color-gold-500)]/20 px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell) : '...'}</div>
+                <div className="w-1/4 text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
+                <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy) : '...'}</div>
+                <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell) : '...'}</div>
               </div>
             ))}
           </div>

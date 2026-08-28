@@ -1,12 +1,32 @@
-﻿'use client';
-import { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 
 export function GoldBarVisual() {
   const [weight, setWeight] = useState(100);
   const [karat, setKarat] = useState(24);
   
-  // Current price per gram logic (mock)
-  const basePrice24k = 7525;
+  const [rates, setRates] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const res = await fetch('/api/rates');
+        if (res.ok) {
+          const data = await res.json();
+          setRates(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch rates', err);
+      }
+    };
+    fetchRates();
+    const interval = setInterval(fetchRates, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Use live AED price from API, convert to INR (approx 22.85) + 15% customs duty
+  const uaePriceAed = rates ? rates.gold['24K'] : 310.50;
+  const basePrice24k = uaePriceAed * 22.85 * 1.15;
   const currentPrice = karat === 24 ? basePrice24k : (basePrice24k * (karat / 24));
   const totalValue = currentPrice * weight;
 
@@ -67,7 +87,7 @@ export function GoldBarVisual() {
       <div className="w-full mt-4 bg-black/5 border border-white/10 p-4 rounded-xl flex items-center justify-between">
         <span className="text-sm text-gray-400 uppercase tracking-widest">Current Market Value</span>
         <span className="text-2xl font-mono text-[var(--color-gold-400)] font-semibold">
-          ₹{totalValue.toLocaleString()}
+          ₹{totalValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
         </span>
       </div>
       

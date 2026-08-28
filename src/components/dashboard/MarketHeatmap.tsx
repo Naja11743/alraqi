@@ -1,29 +1,42 @@
-﻿'use client';
+'use client';
 import { useState, useEffect } from 'react';
 import { format, subDays } from 'date-fns';
 
-// Generate 90 days of heatmap data
-const generateHeatmapData = () => {
-  const data = [];
-  for (let i = 89; i >= 0; i--) {
-    const date = subDays(new Date(), i);
-    // Random movement (-2% to +2%)
-    const movement = (Math.random() - 0.45) * 4;
-    data.push({
-      date,
-      movement: Number(movement.toFixed(2))
-    });
-  }
-  return data;
-};
-
-const heatmapData = generateHeatmapData();
+// Heatmap data will be fetched from API
 
 export function MarketHeatmap() {
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedDay, setSelectedDay] = useState(heatmapData[heatmapData.length - 1]);
+  const [heatmapData, setHeatmapData] = useState<any[]>([]);
+  const [selectedDay, setSelectedDay] = useState<any>(null);
 
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true);
+    const fetchHistory = async () => {
+      try {
+        const res = await fetch('/api/historical');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.history && json.history.length > 0) {
+            const calculatedData = [];
+            for (let i = 1; i < json.history.length; i++) {
+              const prev = json.history[i - 1].priceAED;
+              const curr = json.history[i].priceAED;
+              const movement = ((curr - prev) / prev) * 100;
+              calculatedData.push({
+                date: new Date(json.history[i].date),
+                movement: Number(movement.toFixed(2))
+              });
+            }
+            setHeatmapData(calculatedData);
+            setSelectedDay(calculatedData[calculatedData.length - 1]);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchHistory();
+  }, []);
 
   const getColor = (movement: number) => {
     if (movement > 1) return 'bg-green-500';
@@ -42,14 +55,16 @@ export function MarketHeatmap() {
         </h2>
         
         {/* Selected Day Info */}
-        <div className="text-right bg-black/5 border border-white/10 p-3 rounded-lg min-w-[140px]">
-          <div className="text-xs text-gray-400 mb-1">
-            {format(selectedDay.date, 'MMM dd, yyyy')}
+        {selectedDay && (
+          <div className="text-right bg-black/5 border border-white/10 p-3 rounded-lg min-w-[140px]">
+            <div className="text-xs text-gray-400 mb-1">
+              {format(selectedDay.date, 'MMM dd, yyyy')}
+            </div>
+            <div className={`font-mono font-semibold ${selectedDay.movement >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              {selectedDay.movement > 0 ? '+' : ''}{selectedDay.movement}%
+            </div>
           </div>
-          <div className={`font-mono font-semibold ${selectedDay.movement >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-            {selectedDay.movement > 0 ? '+' : ''}{selectedDay.movement}%
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Heatmap Grid */}

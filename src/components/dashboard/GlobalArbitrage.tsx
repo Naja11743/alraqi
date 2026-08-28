@@ -1,15 +1,33 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRightLeft, Globe } from 'lucide-react';
 
 export function GlobalArbitrage() {
   const [weight, setWeight] = useState(100); // g
   const [karat, setKarat] = useState(24);
   
-  // Mock exchange rate and prices
+  const [rates, setRates] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const res = await fetch('/api/rates');
+        if (res.ok) {
+          const data = await res.json();
+          setRates(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch rates', err);
+      }
+    };
+    fetchRates();
+    const interval = setInterval(fetchRates, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   const exchangeRate = 22.85; // 1 AED = 22.85 INR
-  const uaePriceAed = 310.50; // Per gram 24k
-  const indiaPriceInr = 7500; // Per gram 24k
+  const uaePriceAed = rates ? (karat === 24 ? rates.gold['24K'] : rates.gold['22K']) : 310.50; // Per gram
+  const indiaPriceInr = uaePriceAed * exchangeRate * 1.05; // Mocking India base price based on UAE live price
   
   const customsDutyPercent = 15; // India import duty on gold
   
@@ -61,7 +79,7 @@ export function GlobalArbitrage() {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-500">Gold Price</span>
-              <span className="text-white font-mono">{uaePriceAed} AED</span>
+              <span className="text-white font-mono">{uaePriceAed.toLocaleString(undefined, {maximumFractionDigits: 2})} AED</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Exchange Rate</span>

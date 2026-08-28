@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function Hero() {
-  // We'll use static mock data for the ticker. In a real app, this would be updated via websockets or SWR polling.
-  const tickerItems = [
-    { label: '24K GOLD', price: 'AED 3,293', change: '+1.24%', up: true },
-    { label: '22K GOLD', price: 'AED 3,019', change: '+0.92%', up: true },
-    { label: '21K GOLD', price: 'AED 2,881', change: '+0.71%', up: true },
-    { label: '18K GOLD', price: 'AED 2,470', change: '+0.45%', up: true },
-    { label: '999 SILVER', price: 'AED 3.91', change: '-0.24%', up: false },
+  const [rates, setRates] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const res = await fetch('/api/rates');
+        if (res.ok) {
+          const data = await res.json();
+          setRates(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch rates', err);
+      }
+    };
+    fetchRates();
+    const interval = setInterval(fetchRates, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const tickerData = rates ? [
+    { label: '24K GOLD', price: `AED ${rates.gold['24K'].toLocaleString('en-US', {maximumFractionDigits:2})}`, change: '+0.00%', up: true },
+    { label: '22K GOLD', price: `AED ${rates.gold['22K'].toLocaleString('en-US', {maximumFractionDigits:2})}`, change: '+0.00%', up: true },
+    { label: '21K GOLD', price: `AED ${rates.gold['21K'].toLocaleString('en-US', {maximumFractionDigits:2})}`, change: '+0.00%', up: true },
+    { label: '18K GOLD', price: `AED ${rates.gold['18K'].toLocaleString('en-US', {maximumFractionDigits:2})}`, change: '+0.00%', up: true },
+    { label: '999 SILVER', price: `AED ${rates.silver['999'].toLocaleString('en-US', {maximumFractionDigits:2})}`, change: '+0.00%', up: true },
+  ] : [
+    { label: '24K GOLD', price: 'AED 0.00', change: '+0.00%', up: true },
+    { label: '22K GOLD', price: 'AED 0.00', change: '+0.00%', up: true },
+    { label: '21K GOLD', price: 'AED 0.00', change: '+0.00%', up: true },
+    { label: '18K GOLD', price: 'AED 0.00', change: '+0.00%', up: true },
+    { label: '999 SILVER', price: 'AED 0.00', change: '+0.00%', up: true },
   ];
 
   return (
@@ -35,7 +59,7 @@ export function Hero() {
       <div className="w-full bg-[#0a0a0a]/80 backdrop-blur-md border-y border-white/10 py-3 mt-8 overflow-hidden flex transform-gpu">
         <div className="flex animate-marquee whitespace-nowrap will-change-transform">
           {/* Double the array for seamless looping */}
-          {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
+          {[...tickerData, ...tickerData, ...tickerData].map((item, i) => (
             <div key={i} className="flex items-center gap-4 mx-8">
               <span className="font-semibold text-gray-300 font-mono">{item.label}</span>
               <span className="text-white font-mono">{item.price}/g</span>

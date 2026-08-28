@@ -2,45 +2,51 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
-// Mock data generator for different timeframes
-const generateData = (points: number, startPrice: number) => {
-  let currentPrice = startPrice;
-  const data = [];
-  for (let i = 0; i < points; i++) {
-    currentPrice = currentPrice + (Math.random() - 0.45) * 500;
-    data.push({
-      date: new Date(Date.now() - (points - i) * 24 * 60 * 60 * 1000).toLocaleDateString(),
-      price: Math.round(currentPrice)
-    });
-  }
-  return data;
-};
-
-const mockDataSets: any = {
-  '1D': generateData(24, 3290),
-  '7D': generateData(7, 3250),
-  '30D': generateData(30, 3150),
-  '6M': generateData(180, 2900),
-  '1Y': generateData(365, 2750),
-  '5Y': generateData(1800, 2100),
-};
+// API fetches will replace local mock generation
 
 export function AdvancedChart() {
   const [isMounted, setIsMounted] = useState(false);
   const [timeframe, setTimeframe] = useState('30D');
   const [karat, setKarat] = useState('24K');
 
-  useEffect(() => setIsMounted(true), []);
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/historical?timeframe=${timeframe}&karat=${karat}`);
+        if (res.ok) {
+          const json = await res.json();
+          // Map to match component format
+          if (json.history) {
+            setData(json.history.map((item: any) => ({
+              date: item.date,
+              price: item.priceAED
+            })));
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [timeframe, karat]);
+
   if (!isMounted) return <div className="py-16 min-h-[500px]"></div>;
 
-  const data = mockDataSets[timeframe];
-  
-  const currentPrice = data[data.length - 1].price;
-  const high = Math.max(...data.map((d: any) => d.price));
-  const low = Math.min(...data.map((d: any) => d.price));
-  const avg = Math.round(data.reduce((a: any, b: any) => a + b.price, 0) / data.length);
-  const percentChange = (((currentPrice - data[0].price) / data[0].price) * 100).toFixed(2);
+  const currentPrice = data.length > 0 ? data[data.length - 1].price : 0;
+  const high = data.length > 0 ? Math.max(...data.map((d: any) => d.price)) : 0;
+  const low = data.length > 0 ? Math.min(...data.map((d: any) => d.price)) : 0;
+  const avg = data.length > 0 ? Math.round(data.reduce((a: any, b: any) => a + b.price, 0) / data.length) : 0;
+  const percentChange = data.length > 0 ? (((currentPrice - data[0].price) / data[0].price) * 100).toFixed(2) : '0.00';
 
   return (
     <div id="analytics" className="py-16">

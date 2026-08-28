@@ -94,12 +94,12 @@ export function Header() {
             <div className="flex items-center gap-2 md:gap-4">
               <button 
                 onClick={() => setIsCmdOpen(true)}
-                className="flex items-center justify-center min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 md:px-3 md:py-2 md:bg-black/20 text-gray-400 hover:text-white transition-colors text-sm border border-transparent md:border-white/10 rounded-lg"
+                className="flex items-center justify-center min-h-[44px] min-w-[44px] md:min-h-0 md:w-40 lg:w-48 md:justify-start md:px-3 md:py-2 md:bg-black/20 text-gray-400 hover:text-white transition-colors text-sm border border-transparent md:border-white/10 rounded-lg"
                 aria-label="Search"
               >
                 <Search size={20} className="md:w-4 md:h-4" />
                 <span className="hidden md:inline ml-2">Search...</span>
-                <kbd className="hidden md:inline-block bg-white/10 px-1.5 rounded text-[10px] ml-2 font-mono">
+                <kbd className="hidden md:inline-block bg-white/10 px-1.5 rounded text-[10px] ml-auto font-mono">
                   ⌘K
                 </kbd>
               </button>

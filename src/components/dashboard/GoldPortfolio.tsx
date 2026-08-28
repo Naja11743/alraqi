@@ -1,5 +1,5 @@
-﻿'use client';
-import { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 import { Plus, Wallet, Trash2 } from 'lucide-react';
 
 interface Asset {
@@ -16,8 +16,26 @@ export function GoldPortfolio() {
   
   const [newKarat, setNewKarat] = useState(24);
   const [newWeight, setNewWeight] = useState('');
+  const [rates, setRates] = useState<any>(null);
 
-  const basePrice24k = 310.50; // mock per gram
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const res = await fetch('/api/rates');
+        if (res.ok) {
+          const data = await res.json();
+          setRates(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch rates', err);
+      }
+    };
+    fetchRates();
+    const interval = setInterval(fetchRates, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const basePrice24k = rates ? rates.gold['24K'] : 310.50;
   
   const calculateAssetValue = (asset: Asset) => {
     const pricePerGram = asset.karat === 24 ? basePrice24k : (basePrice24k * (asset.karat / 24));

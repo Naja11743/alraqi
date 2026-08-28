@@ -2,24 +2,13 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
 
-// Generate mock progressive timeline data
-const generateTimelineData = (startYear: number, endYear: number, initialInvestment: number) => {
-  const data = [];
-  let currentValue = initialInvestment;
-  const totalYears = endYear - startYear;
-  
-  for (let i = 0; i <= totalYears; i++) {
-    const year = startYear + i;
-    // Average 8% YoY growth with some randomness
-    const growth = 1.08 + (Math.random() - 0.4) * 0.1;
-    if (i > 0) currentValue *= growth;
-    
-    data.push({
-      year,
-      value: Math.round(currentValue)
-    });
-  }
-  return data;
+// Real approximate past prices in AED for 24K gold
+const pastPrices: Record<number, number> = {
+  2010: 145,
+  2012: 200,
+  2015: 140,
+  2018: 155,
+  2020: 215
 };
 
 export function HistoricalSimulator() {
@@ -28,18 +17,42 @@ export function HistoricalSimulator() {
   const [investment, setInvestment] = useState(2000);
   const currentYear = 2026;
   
-  useEffect(() => setIsMounted(true), []);
+  const [rates, setRates] = useState<any>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const fetchRates = async () => {
+      try {
+        const res = await fetch('/api/rates');
+        if (res.ok) {
+          const data = await res.json();
+          setRates(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch rates', err);
+      }
+    };
+    fetchRates();
+    const interval = setInterval(fetchRates, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   if (!isMounted) return <div className="h-full min-h-[400px]"></div>;
 
-  const data = generateTimelineData(startYear, currentYear, investment);
-  const finalValue = data[data.length - 1].value;
+  const currentPricePerGram = rates ? rates.gold['24K'] : 310.50;
+  const historicalPricePerGram = pastPrices[startYear] || 150;
+  
+  const goldPurchased = investment / historicalPricePerGram;
+  const finalValue = goldPurchased * currentPricePerGram;
   const profit = finalValue - investment;
   const roi = ((finalValue - investment) / investment) * 100;
 
-  // Assuming 24K was around 150 AED/g in 2015 for calculation mock
-  const historicalPricePerGram = 150 * Math.pow(1.08, (startYear - 2015));
-  const goldPurchased = investment / historicalPricePerGram;
+  // Simple interpolation for visual chart without random mock data
+  const data = [
+    { year: startYear, value: investment },
+    { year: Math.round((startYear + currentYear) / 2), value: investment + (profit / 2) },
+    { year: currentYear, value: finalValue }
+  ];
 
   return (
     <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col">
