@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Loader2 } from 'lucide-react';
+import { FlashBox } from '@/components/ui/FlashBox';
 
 interface Rates {
   gold: {
@@ -131,18 +132,18 @@ export function BullionTVDashboard() {
                   <span className="text-[10px] sm:text-xs lg:text-sm text-[var(--color-gold-500)]/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
+                  <FlashBox value={rates?.spotUsd?.gold.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid)}` : '...'}
-                  </div>
+                  </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
                     <span className="text-gray-500 font-bold uppercase tracking-wider">Low</span>
                     <span className="text-red-400 font-mono font-medium">{rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.low)}` : '...'}</span>
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
-                    {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.ask)}` : '...'}
-                  </div>
+                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                    {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid + 0.50)}` : '...'}
+                  </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
                     <span className="text-gray-500 font-bold uppercase tracking-wider">High</span>
                     <span className="text-green-400 font-mono font-medium">{rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.high)}` : '...'}</span>
@@ -160,18 +161,18 @@ export function BullionTVDashboard() {
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
+                  <FlashBox value={rates?.spotUsd?.silver.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid, 3)}` : '...'}
-                  </div>
+                  </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
                     <span className="text-gray-500 font-bold uppercase tracking-wider">Low</span>
                     <span className="text-red-400 font-mono font-medium">{rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.low, 3)}` : '...'}</span>
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white bg-green-700/90 py-1.5 sm:py-2 lg:py-3 border-2 border-green-500 w-full text-center tracking-wider font-mono rounded shadow-[0_0_15px_rgba(34,197,94,0.2)] whitespace-nowrap px-1">
-                    {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.ask, 3)}` : '...'}
-                  </div>
+                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                    {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid + 0.030, 3)}` : '...'}
+                  </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
                     <span className="text-gray-500 font-bold uppercase tracking-wider">High</span>
                     <span className="text-green-400 font-mono font-medium">{rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.high, 3)}` : '...'}</span>
