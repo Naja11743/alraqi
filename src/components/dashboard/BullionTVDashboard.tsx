@@ -33,14 +33,14 @@ interface Rates {
 }
 
 export function BullionTVDashboard() {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })));
   const [rates, setRates] = useState<Rates | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date());
+      setCurrentTime(new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -48,7 +48,7 @@ export function BullionTVDashboard() {
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        const res = await fetch('/api/rates');
+        const res = await fetch('/api/rates', { cache: 'no-store' });
         if (!res.ok) throw new Error('API Error');
         const data = await res.json();
         setRates(data);
@@ -132,7 +132,7 @@ export function BullionTVDashboard() {
                   <span className="text-[10px] sm:text-xs lg:text-sm text-[var(--color-gold-500)]/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox value={rates?.spotUsd?.gold.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.gold.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -141,7 +141,7 @@ export function BullionTVDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid + 0.50)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -161,7 +161,7 @@ export function BullionTVDashboard() {
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox value={rates?.spotUsd?.silver.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.silver.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid, 3)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -170,7 +170,7 @@ export function BullionTVDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid + 0.030, 3)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">

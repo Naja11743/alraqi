@@ -3,11 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface FlashBoxProps {
   value: number | undefined | null;
+  tick?: string | number; // Added to force update logic on every new tick
   children: React.ReactNode;
   className?: string;
 }
 
-export function FlashBox({ value, children, className = '' }: FlashBoxProps) {
+export function FlashBox({ value, tick, children, className = '' }: FlashBoxProps) {
   const prevValueRef = useRef<number | null>(null);
   const [flash, setFlash] = useState<'up' | 'down' | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -28,7 +29,6 @@ export function FlashBox({ value, children, className = '' }: FlashBoxProps) {
         setFlash(null);
       }, 1500);
     } else if (prevValueRef.current !== null && prevValueRef.current === value) {
-        // If there's a new tick but no change, ensure it's normal color
         setFlash(null);
     }
 
@@ -37,7 +37,7 @@ export function FlashBox({ value, children, className = '' }: FlashBoxProps) {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [value]);
+  }, [value, tick]); // Added tick to ensure it runs every time new data arrives
 
   const getBgClass = () => {
     if (flash === 'up') return 'bg-green-400/90 border-green-300 shadow-[0_0_15px_rgba(74,222,128,0.5)]';
@@ -46,7 +46,7 @@ export function FlashBox({ value, children, className = '' }: FlashBoxProps) {
   };
 
   return (
-    <div className={`transition-colors duration-500 border-2 py-1.5 sm:py-2 lg:py-3 w-full text-center tracking-wider font-mono rounded whitespace-nowrap px-1 ${getBgClass()} ${className}`}>
+    <div className={`transition-all duration-500 border-2 py-1.5 sm:py-2 lg:py-3 w-full text-center tracking-wider font-mono rounded whitespace-nowrap px-1 ${getBgClass()} ${className}`}>
       {children}
     </div>
   );
