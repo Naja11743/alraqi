@@ -87,10 +87,10 @@ export async function GET() {
     console.error('Failed to fetch live rates (rate limit/error), falling back to simulated data:', error);
     
     // Simulate a slight fluctuation to keep the UI alive and show the flash effect
-    const randomFluctuation = () => (Math.random() - 0.5) * 0.5; // +/- 0.25 USD
+    // Removed random fluctuation
     
-    const fallbackGold = previousGoldPrice > 0 ? previousGoldPrice + randomFluctuation() : 2500.50;
-    const fallbackSilver = previousSilverPrice > 0 ? previousSilverPrice + (randomFluctuation() * 0.1) : 28.30;
+    const fallbackGold = previousGoldPrice > 0 ? previousGoldPrice : 2500.50;
+    const fallbackSilver = previousSilverPrice > 0 ? previousSilverPrice : 28.30;
     
     previousGoldPrice = fallbackGold;
     previousSilverPrice = fallbackSilver;
@@ -118,3 +118,4 @@ export async function GET() {
     });
   }
 }
+

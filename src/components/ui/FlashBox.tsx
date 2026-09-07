@@ -27,7 +27,9 @@ export function FlashBox({ value, tick, children, className = '' }: FlashBoxProp
 
       timeoutRef.current = setTimeout(() => {
         setFlash(null);
-      }, 1500);
+      }, 300);
+
+
     } else if (prevValueRef.current !== null && prevValueRef.current === value) {
         setFlash(null);
     }
@@ -46,8 +48,11 @@ export function FlashBox({ value, tick, children, className = '' }: FlashBoxProp
   };
 
   return (
-    <div className={`transition-all duration-500 border-2 py-1.5 sm:py-2 lg:py-3 w-full text-center tracking-wider font-mono rounded whitespace-nowrap px-1 ${getBgClass()} ${className}`}>
+    <div className={`transition-colors duration-300 border-2 py-1.5 sm:py-2 lg:py-3 w-full text-center tracking-wider font-mono rounded whitespace-nowrap px-1 ${getBgClass()} ${className}`}>
       {children}
     </div>
   );
 }
+
+
+

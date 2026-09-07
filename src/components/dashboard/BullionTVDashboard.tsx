@@ -47,6 +47,7 @@ export function BullionTVDashboard() {
 
   useEffect(() => {
     let ws: WebSocket;
+    let pollInterval: NodeJS.Timeout;
     let baseSilver = 28.50; // Fallback if API fails
     let isInitialFetchDone = false;
 
@@ -71,6 +72,7 @@ export function BullionTVDashboard() {
     };
     
     fetchInitialRates();
+    pollInterval = setInterval(fetchInitialRates, 3000);
 
     // 2. Real-time WebSocket for continuous flashing terminal effect
     const connectWS = () => {
@@ -82,11 +84,6 @@ export function BullionTVDashboard() {
           const msg = JSON.parse(event.data);
           if (msg && msg.c) {
             const liveGold = parseFloat(msg.c);
-            
-            // Generate a synthetic, correlated Silver tick
-            // Random walk within a tiny margin to simulate real tick-by-tick action
-            const microTick = (Math.random() - 0.5) * 0.01;
-            baseSilver = baseSilver + microTick;
             
             // Generate live timestamp (tick)
             const tickTime = new Date().toISOString() + Math.random().toString();
@@ -146,6 +143,7 @@ export function BullionTVDashboard() {
 
     return () => {
       if (ws) ws.close();
+      clearInterval(pollInterval);
     };
   }, []);
 
@@ -340,3 +338,9 @@ export function BullionTVDashboard() {
     </div>
   );
 }
+
+
+
+
+
+

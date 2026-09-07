@@ -79,7 +79,7 @@ export function GlobalArbitrage() {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-500">Gold Price</span>
-              <span className="text-white font-mono">{uaePriceAed.toLocaleString(undefined, {maximumFractionDigits: 2})} AED</span>
+              <span className="text-white font-mono">{uaePriceAed.toLocaleString('en-IN', {maximumFractionDigits: 2})} AED</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Exchange Rate</span>
@@ -87,7 +87,7 @@ export function GlobalArbitrage() {
             </div>
             <div className="pt-3 border-t border-white/10 flex justify-between font-medium">
               <span className="text-gray-400">Adjusted Cost</span>
-              <span className="text-white font-mono">₹{uaePriceInr.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+              <span className="text-white font-mono">₹{uaePriceInr.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function GlobalArbitrage() {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-500">Gold Price</span>
-              <span className="text-white font-mono">₹{indiaPriceInr.toLocaleString()}</span>
+              <span className="text-white font-mono">₹{indiaPriceInr.toLocaleString('en-IN')}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Customs Duty</span>
@@ -105,7 +105,7 @@ export function GlobalArbitrage() {
             </div>
             <div className="pt-3 border-t border-white/10 flex justify-between font-medium">
               <span className="text-gray-400">Adjusted Cost</span>
-              <span className="text-white font-mono">₹{indiaPriceTotalInr.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+              <span className="text-white font-mono">₹{indiaPriceTotalInr.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@ export function GlobalArbitrage() {
         <div>
           <div className="text-xs text-gray-500 uppercase tracking-widest mb-1">Price Difference</div>
           <div className="text-2xl font-mono text-white">
-            ₹{Math.abs(priceDifference).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+            ₹{Math.abs(priceDifference).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
           </div>
         </div>
         
