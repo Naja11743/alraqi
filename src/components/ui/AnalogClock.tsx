@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-export function AnalogClock({ timezone, label, flag }: { timezone: string; label: string; flag?: string }) {
+export function AnalogClock({ timezone, label, countryCode }: { timezone: string; label: string; countryCode?: string }) {
   const [time, setTime] = useState(new Date());
   const [mounted, setMounted] = useState(false);
 
@@ -21,7 +21,13 @@ export function AnalogClock({ timezone, label, flag }: { timezone: string; label
           <circle cx="50" cy="50" r="48" fill="transparent" stroke="white" strokeWidth="2" strokeOpacity="0.8" />
         </svg>
         <div className="flex items-center gap-1.5 mt-1">
-          {flag && <span className="text-sm">{flag}</span>}
+          {countryCode && (
+            <img 
+              src={`https://flagcdn.com/w20/${countryCode}.png`} 
+              alt={`${label} flag`} 
+              className="w-3.5 h-2.5 sm:w-4 sm:h-3 object-cover rounded-sm"
+            />
+          )}
           <span className="text-[9px] sm:text-xs text-white/80 tracking-widest uppercase font-mono text-center leading-tight">
             {label}
           </span>
@@ -90,7 +96,13 @@ export function AnalogClock({ timezone, label, flag }: { timezone: string; label
         <circle cx="50" cy="50" r="2.5" fill="white" />
       </svg>
       <div className="flex items-center gap-1.5 mt-1">
-        {flag && <span className="text-sm">{flag}</span>}
+        {countryCode && (
+          <img 
+            src={`https://flagcdn.com/w20/${countryCode}.png`} 
+            alt={`${label} flag`} 
+            className="w-3.5 h-2.5 sm:w-4 sm:h-3 object-cover rounded-sm"
+          />
+        )}
         <span className="text-[9px] sm:text-xs text-white/80 tracking-widest uppercase font-mono text-center leading-tight">
           {label}
         </span>

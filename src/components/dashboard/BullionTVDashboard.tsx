@@ -161,9 +161,9 @@ export function BullionTVDashboard() {
         <div className="hidden sm:flex w-full lg:w-[45%] h-24 lg:h-auto border border-[var(--color-gold-500)]/40 bg-black/40 rounded-lg relative overflow-hidden items-center justify-center">
              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-gold-900)]/20 to-transparent pointer-events-none"></div>
              <div className="z-10 flex w-full justify-evenly items-center gap-4 px-4 py-2">
-               <AnalogClock timezone="Asia/Kolkata" label="INDIA" flag="🇮🇳" />
-               <AnalogClock timezone="Europe/London" label="ENGLAND" flag="🇬🇧" />
-               <AnalogClock timezone="America/New_York" label="USA" flag="🇺🇸" />
+               <AnalogClock timezone="Asia/Kolkata" label="INDIA" countryCode="in" />
+               <AnalogClock timezone="Europe/London" label="ENGLAND" countryCode="gb" />
+               <AnalogClock timezone="America/New_York" label="USA" countryCode="us" />
              </div>
         </div>
 
