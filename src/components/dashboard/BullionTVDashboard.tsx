@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Loader2 } from 'lucide-react';
 import { FlashBox } from '@/components/ui/FlashBox';
+import { AnalogClock } from '@/components/ui/AnalogClock';
 
 interface Rates {
   gold: {
@@ -156,10 +157,14 @@ export function BullionTVDashboard() {
       
       {/* TOP SECTION */}
       <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4 lg:h-[22vh] lg:min-h-[160px] flex-shrink-0">
-        {/* Top Left: Video/Chart Placeholder (Hidden on small mobile) */}
+        {/* Top Left: World Clocks */}
         <div className="hidden sm:flex w-full lg:w-[45%] h-24 lg:h-auto border border-[var(--color-gold-500)]/40 bg-black/40 rounded-lg relative overflow-hidden items-center justify-center">
-             <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-gold-900)]/20 to-transparent"></div>
-             <span className="text-[var(--color-gold-700)]/50 tracking-widest uppercase text-xs sm:text-sm font-mono z-10 text-center px-4">AL RAQI MARKET FEED</span>
+             <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-gold-900)]/20 to-transparent pointer-events-none"></div>
+             <div className="z-10 flex w-full justify-evenly items-center gap-4 px-4 py-2">
+               <AnalogClock timezone="Asia/Kolkata" label="INDIA" flag="🇮🇳" />
+               <AnalogClock timezone="Europe/London" label="ENGLAND" flag="🇬🇧" />
+               <AnalogClock timezone="America/New_York" label="USA" flag="🇺🇸" />
+             </div>
         </div>
 
         {/* Top Right: Date & Logo */}
