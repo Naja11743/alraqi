@@ -104,7 +104,7 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
           />
         )}
         <span className="text-[9px] sm:text-xs text-white/80 tracking-widest uppercase font-mono text-center leading-tight">
-          {label}
+          {label} {tzTime.getHours() >= 12 ? 'PM' : 'AM'}
         </span>
       </div>
     </div>

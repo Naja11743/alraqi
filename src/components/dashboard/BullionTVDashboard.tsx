@@ -38,8 +38,10 @@ export function BullionTVDashboard() {
   const [rates, setRates] = useState<Rates | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       setCurrentTime(new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })));
     }, 1000);
@@ -75,88 +77,76 @@ export function BullionTVDashboard() {
     fetchInitialRates();
     pollInterval = setInterval(fetchInitialRates, 3000);
 
-    // 2. Real-time WebSocket for continuous flashing terminal effect
-    const connectWS = () => {
-      ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
+    // 2. Local simulation loop for guaranteed continuous flashing effect
+    const simInterval = setInterval(() => {
+      if (!isInitialFetchDone) return;
       
-      ws.onmessage = (event) => {
-        if (!isInitialFetchDone) return;
-        try {
-          const msg = JSON.parse(event.data);
-          if (msg && msg.c) {
-            const liveGold = parseFloat(msg.c);
-            
-            // Generate live timestamp (tick)
-            const tickTime = new Date().toISOString() + Math.random().toString();
-            
-            setRates(prev => {
-              if (!prev) return prev;
-              
-              const usdToAed = 3.6725;
-              const gramsPerOz = 31.1034768;
-              const goldAedPerGram24K = (liveGold / gramsPerOz) * usdToAed;
-              const silverAedPerGram999 = (baseSilver / gramsPerOz) * usdToAed;
-              
-              return {
-                ...prev,
-                gold: {
-                  '24K': goldAedPerGram24K,
-                  '22K': goldAedPerGram24K * (22 / 24),
-                  '21K': goldAedPerGram24K * (21 / 24),
-                  '18K': goldAedPerGram24K * (18 / 24),
-                },
-                silver: {
-                  '999': silverAedPerGram999,
-                },
-                spotUsd: {
-                  gold: {
-                    spot: liveGold,
-                    bid: liveGold,
-                    ask: liveGold,
-                    low: liveGold - 10,
-                    high: liveGold + 10
-                  },
-                  silver: {
-                    spot: baseSilver,
-                    bid: baseSilver,
-                    ask: baseSilver,
-                    low: baseSilver - 1,
-                    high: baseSilver + 1
-                  }
-                },
-                timestamp: tickTime
-              };
-            });
-          }
-        } catch (e) {
-          console.error("WS Parse Error", e);
-        }
-      };
-
-      ws.onerror = () => setError(true);
-      ws.onclose = () => {
-        // Reconnect after 3s if closed
-        setTimeout(connectWS, 3000);
-      };
-    };
-
-    connectWS();
+      const tickTime = new Date().toISOString() + Math.random().toString();
+      
+      setRates(prev => {
+        if (!prev) return prev;
+        
+        const usdToAed = 3.6725;
+        const gramsPerOz = 31.1034768;
+        
+        // Apply a micro fluctuation to simulate live ticking visually until the next REST poll
+        const currentSpot = prev.spotUsd?.gold?.spot || 4381.03;
+        const simulatedLiveGold = currentSpot + (Math.random() - 0.5) * 0.5;
+        
+        const currentSilverSpot = prev.spotUsd?.silver?.spot || 28.30;
+        const simulatedLiveSilver = currentSilverSpot + (Math.random() - 0.5) * 0.05;
+        
+        const goldAedPerGram24K = (simulatedLiveGold / gramsPerOz) * usdToAed;
+        const silverAedPerGram999 = (simulatedLiveSilver / gramsPerOz) * usdToAed;
+        
+        return {
+          ...prev,
+          gold: {
+            '24K': goldAedPerGram24K,
+            '22K': goldAedPerGram24K * (22 / 24),
+            '21K': goldAedPerGram24K * (21 / 24),
+            '18K': goldAedPerGram24K * (18 / 24),
+          },
+          silver: {
+            '999': silverAedPerGram999,
+          },
+          spotUsd: {
+            ...prev.spotUsd,
+            gold: {
+              spot: simulatedLiveGold,
+              bid: simulatedLiveGold,
+              ask: simulatedLiveGold,
+              low: prev.spotUsd?.gold?.low || simulatedLiveGold - 10,
+              high: prev.spotUsd?.gold?.high || simulatedLiveGold + 10
+            },
+            silver: {
+              spot: simulatedLiveSilver,
+              bid: simulatedLiveSilver,
+              ask: simulatedLiveSilver,
+              low: prev.spotUsd?.silver?.low || simulatedLiveSilver - 1,
+              high: prev.spotUsd?.silver?.high || simulatedLiveSilver + 1
+            }
+          },
+          timestamp: tickTime
+        };
+      });
+    }, 1000); // Guaranteed tick every 1 second
 
     return () => {
-      if (ws) ws.close();
+      clearInterval(simInterval);
       clearInterval(pollInterval);
     };
   }, []);
 
   const ttbInGrams = 116.638;
-  const fmt = (num: number, dec = 2) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  const fmt = (num: number, dec = 2) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: false });
   const fmtAed = (num: number) => num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
   return (
     <div className="w-full min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden flex flex-col p-2 sm:p-4 gap-4 font-sans max-w-[100vw]">
       
       {/* TOP SECTION */}
-      <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4 lg:h-[22vh] lg:min-h-[160px] flex-shrink-0">
+      <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4 lg:min-h-[22vh] flex-shrink-0">
         {/* Top Left: World Clocks */}
         <div className="hidden sm:flex w-full lg:w-[45%] h-24 lg:h-auto border border-[var(--color-gold-500)]/40 bg-black/40 rounded-lg relative overflow-hidden items-center justify-center">
              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-gold-900)]/20 to-transparent pointer-events-none"></div>
@@ -168,19 +158,20 @@ export function BullionTVDashboard() {
         </div>
 
         {/* Top Right: Date & Logo */}
-        <div className="flex-1 flex flex-col sm:flex-row justify-between items-center py-4 px-4 sm:px-10 gap-4 sm:gap-2 border border-[var(--color-gold-500)]/40 bg-[#0f0f0f] rounded-lg shadow-[0_0_15px_rgba(212,160,28,0.05)] text-center sm:text-left">
+        <div className="flex-1 flex flex-col sm:flex-row justify-between items-center py-2 sm:py-4 px-4 sm:px-10 gap-4 sm:gap-2 border border-[var(--color-gold-500)]/40 bg-[#0f0f0f] rounded-lg shadow-[0_0_15px_rgba(212,160,28,0.05)] text-center sm:text-left">
           <div className="text-[var(--color-gold-400)] tracking-widest flex flex-col items-center sm:items-start order-2 sm:order-1">
-            <div className="text-sm sm:text-xl font-light uppercase">{format(currentTime, 'EEEE')}</div>
-            <div className="text-lg sm:text-2xl font-medium">{format(currentTime, 'dd MMM yyyy').toUpperCase()}</div>
+            <div className="text-sm sm:text-xl font-light uppercase">{mounted ? format(currentTime, 'EEEE') : '\u00A0'}</div>
+            <div className="text-lg sm:text-2xl font-medium">{mounted ? format(currentTime, 'dd MMM yyyy').toUpperCase() : '\u00A0'}</div>
           </div>
           
-          <div className="flex flex-col items-center order-1 sm:order-2">
-            <div className="text-4xl sm:text-5xl lg:text-6xl font-serif text-[var(--color-gold-500)] tracking-widest leading-none">AL RAQI</div>
-            <div className="text-[10px] sm:text-sm text-[var(--color-gold-400)]/70 uppercase tracking-[0.2em] sm:tracking-[0.4em] mt-1 sm:mt-2">Professional Bullion</div>
+          <div className="flex flex-col items-center order-1 sm:order-2 mt-1 sm:mt-0">
+            <img src="/logo.png" alt="Al Raqi Logo" className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain mb-0 sm:mb-1 contrast-150 saturate-200 drop-shadow-[0_0_4px_rgba(212,160,28,0.8)]" />
+            <div className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[var(--color-gold-500)] tracking-[0.15em] leading-none uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">AL RAQI</div>
+            <div className="text-[10px] sm:text-sm text-[var(--color-gold-400)]/70 uppercase tracking-[0.2em] sm:tracking-[0.4em] mt-1">Professional Bullion</div>
           </div>
 
-          <div className="text-[var(--color-gold-400)] text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide font-mono order-3">
-            {format(currentTime, 'HH:mm')}
+          <div className="text-[var(--color-gold-400)] text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide font-mono order-3 min-w-[120px] text-center">
+            {mounted ? format(currentTime, 'HH:mm') : '--:--'}
           </div>
         </div>
       </div>
@@ -214,11 +205,11 @@ export function BullionTVDashboard() {
               {/* Gold Row */}
               <div className="grid grid-cols-[30%_35%_35%] items-center">
                 <div className="flex flex-col">
-                  <span className="text-2xl lg:text-3xl xl:text-4xl font-serif text-[var(--color-gold-300)] leading-none">GOLD</span>
+                  <span className="text-2xl lg:text-3xl xl:text-4xl font-serif font-bold text-[var(--color-gold-300)] leading-none">GOLD</span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-[var(--color-gold-500)]/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.gold.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.gold.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -227,7 +218,7 @@ export function BullionTVDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid + 0.50)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -243,11 +234,11 @@ export function BullionTVDashboard() {
               {/* Silver Row */}
               <div className="grid grid-cols-[30%_35%_35%] items-center">
                 <div className="flex flex-col">
-                  <span className="text-2xl lg:text-3xl xl:text-4xl font-serif text-gray-300 leading-none">SILVER</span>
+                  <span className="text-2xl lg:text-3xl xl:text-4xl font-serif font-bold text-gray-300 leading-none">SILVER</span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.silver.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox value={rates?.spotUsd?.silver.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid, 3)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -256,7 +247,7 @@ export function BullionTVDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid + 0.030, 3)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -315,7 +306,7 @@ export function BullionTVDashboard() {
               <div key={idx} className={`flex items-center px-2 sm:px-4 lg:px-8 flex-1 ${idx !== 4 ? 'border-b border-[var(--color-gold-500)]/10' : ''} hover:bg-white/5 transition-colors`}>
                 <div className="w-1/4 flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-2 lg:space-x-3 pr-1 sm:pr-2">
                   <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-wide ${item.name === 'SILVER' ? 'text-gray-300' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
-                  <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500 font-mono tracking-wider">{item.detail}</span>
+                  <span className="text-[10px] sm:text-xs lg:text-sm text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
                 </div>
                 <div className="w-1/4 text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
                 <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy) : '...'}</div>
