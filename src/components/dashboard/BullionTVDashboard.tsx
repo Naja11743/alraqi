@@ -175,7 +175,7 @@ export function BullionTVDashboard() {
   }
 
   return (
-    <div className="w-full h-screen max-h-screen bg-[#0a0a0a] text-white overflow-hidden flex flex-col p-2 sm:p-4 gap-2 lg:gap-4 font-sans max-w-[100vw] relative">
+    <div className="w-full min-h-screen lg:h-screen lg:max-h-screen bg-[#0a0a0a] text-white overflow-y-auto overflow-x-hidden lg:overflow-hidden flex flex-col p-2 sm:p-4 gap-2 lg:gap-4 font-sans max-w-[100vw] relative">
       
       {isMarketClosed && (
         <div className="fixed top-6 -left-24 w-[400px] bg-red-600 text-white font-bold py-2 sm:py-3 transform -rotate-45 z-[100] shadow-[0_0_20px_rgba(220,38,38,0.5)] border-y-2 border-red-400/50 pointer-events-none overflow-hidden flex items-center">
@@ -222,7 +222,7 @@ export function BullionTVDashboard() {
       <div className="flex-1 flex flex-col lg:flex-row gap-2 lg:gap-4 min-h-0">
         
         {/* Left: Spot Rate & Sentiment */}
-        <div className="w-full lg:w-[45%] flex flex-col gap-2 lg:gap-4 h-full min-h-0">
+        <div className="w-full lg:w-[45%] flex flex-col gap-2 lg:gap-4 h-auto lg:h-full min-h-[450px] lg:min-h-0">
           <div className="flex-1 border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden min-h-0">
             <div className="grid grid-cols-[30%_35%_35%] bg-gradient-to-r from-[#d97706] via-[#facc15] to-[#d97706] text-black font-black text-sm sm:text-base lg:text-lg py-2 sm:py-3 px-2 sm:px-4 items-center shadow-[0_4px_15px_rgba(250,204,21,0.4)] border-b-2 border-[#facc15]/60">
               <span className="text-left tracking-[0.2em] uppercase drop-shadow-md">SPOT RATE</span>
@@ -319,7 +319,7 @@ export function BullionTVDashboard() {
         </div>
 
         {/* Right: Commodity */}
-        <div className="flex-1 w-full border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden shadow-[0_0_15px_rgba(212,160,28,0.05)] h-full">
+        <div className="flex-1 w-full border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden shadow-[0_0_15px_rgba(212,160,28,0.05)] h-auto lg:h-full min-h-[400px] lg:min-h-0">
           <div className="flex bg-gradient-to-r from-[#d97706] via-[#facc15] to-[#d97706] text-black font-black text-xs sm:text-sm lg:text-base uppercase py-2 sm:py-3 px-2 sm:px-4 lg:px-8 shadow-[0_4px_15px_rgba(250,204,21,0.4)] border-b-2 border-[#facc15]/60">
             <span className="w-[30%] tracking-[0.2em] drop-shadow-md">COMMODITY</span>
             <span className="w-[20%] text-center tracking-[0.2em] border-l-2 border-black/60 drop-shadow-md">WEIGHT</span>
