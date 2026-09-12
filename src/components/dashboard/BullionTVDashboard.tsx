@@ -142,7 +142,7 @@ export function BullionTVDashboard() {
 
   const ttbInGrams = 116.638;
   const fmt = (num: number, dec = 2) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: false });
-  const fmtAed = (num: number) => num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  const fmtAed = (num: number, dec = 0) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
   return (
     <div className="w-full min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden flex flex-col p-2 sm:p-4 gap-4 font-sans max-w-[100vw]">
@@ -289,15 +289,15 @@ export function BullionTVDashboard() {
           
           <div className="flex-1 flex flex-col py-1 sm:py-2 lg:py-4 overflow-hidden min-h-[300px]">
             {[
-              { name: 'GOLD', detail: '9999', weight: '1 KG', 
-                buy: rates ? (rates.gold['24K'] * 1000) - 50 : 0, 
-                sell: rates ? (rates.gold['24K'] * 1000) + 50 : 0 },
-              { name: 'GOLD', detail: '999', weight: '1 KG', 
-                buy: rates ? (rates.gold['24K'] * 0.999 * 1000) - 50 : 0, 
-                sell: rates ? (rates.gold['24K'] * 0.999 * 1000) + 50 : 0 },
-              { name: 'GOLD', detail: '995', weight: '1 KG', 
-                buy: rates ? (rates.gold['24K'] * 0.995 * 1000) - 50 : 0, 
-                sell: rates ? (rates.gold['24K'] * 0.995 * 1000) + 50 : 0 },
+              { name: 'GOLD', detail: '9999', weight: '1 GM', 
+                buy: rates ? (rates.gold['24K']) - 0.5 : 0, 
+                sell: rates ? (rates.gold['24K']) + 0.5 : 0 },
+              { name: 'GOLD', detail: '999', weight: '1 GM', 
+                buy: rates ? (rates.gold['24K'] * 0.999) - 0.5 : 0, 
+                sell: rates ? (rates.gold['24K'] * 0.999) + 0.5 : 0 },
+              { name: 'GOLD', detail: '995', weight: '1 GM', 
+                buy: rates ? (rates.gold['24K'] * 0.995) - 0.5 : 0, 
+                sell: rates ? (rates.gold['24K'] * 0.995) + 0.5 : 0 },
               { name: 'GOLD', detail: 'TTB', weight: '1 TTB', 
                 buy: rates ? (rates.gold['24K'] * 0.995 * ttbInGrams) - 10 : 0, 
                 sell: rates ? (rates.gold['24K'] * 0.995 * ttbInGrams) + 10 : 0 },
@@ -311,8 +311,8 @@ export function BullionTVDashboard() {
                   <span className="text-[9px] sm:text-[10px] lg:text-xs xl:text-sm text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
                 </div>
                 <div className="w-[20%] text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
-                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy) : '...'}</div>
-                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell) : '...'}</div>
+                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
+                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
               </div>
             ))}
           </div>
