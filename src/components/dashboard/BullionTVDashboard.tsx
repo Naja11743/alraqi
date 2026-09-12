@@ -166,10 +166,10 @@ export function BullionTVDashboard() {
             <div className="text-lg sm:text-2xl font-medium">{mounted ? format(currentTime, 'dd MMM yyyy').toUpperCase() : '\u00A0'}</div>
           </div>
           
-          <div className="flex flex-col items-center order-1 sm:order-2 mt-1 sm:mt-0">
-            <img src="/logo.png" alt="Al Raqi Logo" className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain mb-0 sm:mb-1 contrast-150 saturate-200 drop-shadow-[0_0_4px_rgba(212,160,28,0.8)]" />
-            <div className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[var(--color-gold-500)] tracking-[0.15em] leading-none uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">AL RAQI</div>
-            <div className="text-[10px] sm:text-sm text-[var(--color-gold-400)]/70 uppercase tracking-[0.2em] sm:tracking-[0.4em] mt-1">Professional Bullion</div>
+          <div className="flex flex-col items-center order-1 sm:order-2 mt-1 sm:mt-0 flex-shrink-0">
+            <img src="/logo.png" alt="Al Raqi Logo" className="w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 object-contain mb-0 sm:mb-2 contrast-150 saturate-200 drop-shadow-[0_0_4px_rgba(212,160,28,0.8)]" />
+            <div className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[var(--color-gold-500)] tracking-[0.15em] leading-none uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] whitespace-nowrap">AL RAQI</div>
+            <div className="text-[10px] sm:text-sm text-[var(--color-gold-400)]/70 uppercase tracking-[0.2em] sm:tracking-[0.4em] mt-1 whitespace-nowrap">Professional Bullion</div>
           </div>
 
           <div className="text-[var(--color-gold-400)] text-3xl sm:text-4xl lg:text-5xl font-light tracking-wide font-mono order-3 min-w-[120px] text-center">
