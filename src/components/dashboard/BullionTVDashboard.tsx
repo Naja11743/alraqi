@@ -337,8 +337,8 @@ export function BullionTVDashboard() {
                   <span className="text-[9px] sm:text-[10px] lg:text-xs xl:text-sm text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
                 </div>
                 <div className="w-[20%] text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
-                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
-                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
+                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
+                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
               </div>
             ))}
           </div>
