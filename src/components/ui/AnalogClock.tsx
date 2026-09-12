@@ -100,9 +100,6 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
             className="w-12 h-8 sm:w-20 sm:h-14 object-cover rounded-md shadow-lg"
           />
         )}
-        <span className="text-xs sm:text-base text-white/90 font-bold tracking-widest bg-black/40 px-2 py-1 rounded">
-          {tzTime.getHours() >= 12 ? 'PM' : 'AM'}
-        </span>
       </div>
     </div>
   );
