@@ -95,9 +95,9 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
       <div className="flex items-center justify-center mt-2 gap-2">
         {countryCode && (
           <img 
-            src={`https://flagcdn.com/w40/${countryCode}.png`} 
+            src={`https://flagcdn.com/w80/${countryCode}.png`} 
             alt={`${label} flag`} 
-            className="w-6 h-4 sm:w-10 sm:h-7 object-cover rounded shadow-md"
+            className="w-8 h-6 sm:w-14 sm:h-10 object-cover rounded shadow-md"
           />
         )}
         <span className="text-[10px] sm:text-sm text-white/90 font-bold tracking-widest bg-black/40 px-1.5 py-0.5 rounded">
