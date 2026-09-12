@@ -165,7 +165,7 @@ export function BullionTVDashboard() {
       
       {isMarketClosed && (
         <div className="fixed top-12 -left-20 w-[350px] bg-red-600 text-white font-bold py-2 sm:py-3 transform -rotate-45 z-[100] shadow-[0_0_20px_rgba(220,38,38,0.5)] border-y-2 border-red-400/50 pointer-events-none overflow-hidden flex items-center">
-          <div className="animate-marquee inline-block whitespace-nowrap tracking-widest uppercase text-xs sm:text-sm lg:text-base">
+          <div className="animate-marquee inline-block whitespace-nowrap tracking-widest text-xs sm:text-sm lg:text-base">
             <span className="px-8">{countdownText}</span>
             <span className="px-8">{countdownText}</span>
             <span className="px-8">{countdownText}</span>
