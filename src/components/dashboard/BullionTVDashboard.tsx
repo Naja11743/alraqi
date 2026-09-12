@@ -182,10 +182,10 @@ export function BullionTVDashboard() {
         {/* Left: Spot Rate & Sentiment */}
         <div className="w-full lg:w-[45%] flex flex-col gap-4 h-full">
           <div className="flex-1 border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden min-h-[250px]">
-            <div className="grid grid-cols-[30%_35%_35%] bg-[var(--color-gold-600)] text-black font-bold text-xs sm:text-sm py-2 sm:py-3 px-2 sm:px-4 items-center shadow-md">
-              <span className="text-left tracking-widest uppercase">SPOT RATE</span>
-              <span className="text-center tracking-widest uppercase border-l-2 border-black">BID</span>
-              <span className="text-center tracking-widest uppercase border-l-2 border-black">ASK</span>
+            <div className="grid grid-cols-[30%_35%_35%] bg-gradient-to-r from-[#d97706] via-[#facc15] to-[#d97706] text-black font-black text-sm sm:text-base lg:text-lg py-2 sm:py-3 px-2 sm:px-4 items-center shadow-[0_4px_15px_rgba(250,204,21,0.4)] border-b-2 border-[#facc15]/60">
+              <span className="text-left tracking-[0.2em] uppercase drop-shadow-md">SPOT RATE</span>
+              <span className="text-center tracking-[0.2em] uppercase border-l-2 border-black/60 drop-shadow-md">BID</span>
+              <span className="text-center tracking-[0.2em] uppercase border-l-2 border-black/60 drop-shadow-md">ASK</span>
             </div>
             
             <div className="flex-1 p-2 sm:p-4 flex flex-col justify-center gap-y-4 sm:gap-y-6 relative min-h-0">
@@ -278,11 +278,11 @@ export function BullionTVDashboard() {
 
         {/* Right: Commodity */}
         <div className="flex-1 w-full border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden shadow-[0_0_15px_rgba(212,160,28,0.05)] h-full">
-          <div className="flex bg-[var(--color-gold-600)] text-black font-bold text-[10px] sm:text-xs lg:text-sm uppercase py-2 sm:py-3 px-2 sm:px-4 lg:px-8 shadow-md">
-            <span className="w-1/4 tracking-[0.1em] sm:tracking-widest">COMMODITY</span>
-            <span className="w-1/4 text-center tracking-[0.1em] sm:tracking-widest border-l-2 border-black">WEIGHT</span>
-            <span className="w-1/4 text-center tracking-[0.1em] sm:tracking-widest border-l-2 border-black">BUY <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold opacity-80">AED</span></span>
-            <span className="w-1/4 text-right tracking-[0.1em] sm:tracking-widest border-l-2 border-black">SELL <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold opacity-80">AED</span></span>
+          <div className="flex bg-gradient-to-r from-[#d97706] via-[#facc15] to-[#d97706] text-black font-black text-xs sm:text-sm lg:text-base uppercase py-2 sm:py-3 px-2 sm:px-4 lg:px-8 shadow-[0_4px_15px_rgba(250,204,21,0.4)] border-b-2 border-[#facc15]/60">
+            <span className="w-[30%] tracking-[0.2em] drop-shadow-md">COMMODITY</span>
+            <span className="w-[20%] text-center tracking-[0.2em] border-l-2 border-black/60 drop-shadow-md">WEIGHT</span>
+            <span className="w-[25%] text-center tracking-[0.2em] border-l-2 border-black/60 drop-shadow-md">BUY <span className="text-[9px] sm:text-[10px] lg:text-xs font-bold opacity-90 drop-shadow-sm">AED</span></span>
+            <span className="w-[25%] text-right tracking-[0.2em] border-l-2 border-black/60 drop-shadow-md">SELL <span className="text-[9px] sm:text-[10px] lg:text-xs font-bold opacity-90 drop-shadow-sm">AED</span></span>
           </div>
           
           <div className="flex-1 flex flex-col py-1 sm:py-2 lg:py-4 overflow-hidden min-h-[300px]">
@@ -304,13 +304,13 @@ export function BullionTVDashboard() {
                 sell: rates ? (rates.silver['999'] * 1000) + 20 : 0 }
             ].map((item, idx) => (
               <div key={idx} className={`flex items-center px-2 sm:px-4 lg:px-8 flex-1 ${idx !== 4 ? 'border-b border-[var(--color-gold-500)]/10' : ''} hover:bg-white/5 transition-colors`}>
-                <div className="w-1/4 flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-2 lg:space-x-3 pr-1 sm:pr-2">
-                  <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-wide ${item.name === 'SILVER' ? 'text-gray-300' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
-                  <span className="text-[10px] sm:text-xs lg:text-sm text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
+                <div className="w-[30%] flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-2 lg:space-x-3 pr-1 sm:pr-2">
+                  <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-serif font-bold tracking-wide ${item.name === 'SILVER' ? 'text-gray-300' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
+                  <span className="text-[9px] sm:text-[10px] lg:text-xs xl:text-sm text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
                 </div>
-                <div className="w-1/4 text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
-                <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy) : '...'}</div>
-                <div className="w-1/4 text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell) : '...'}</div>
+                <div className="w-[20%] text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
+                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy) : '...'}</div>
+                <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-light tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.sell) : '...'}</div>
               </div>
             ))}
           </div>

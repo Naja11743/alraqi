@@ -18,19 +18,16 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
     return (
       <div className="flex flex-col items-center gap-1.5 sm:gap-2">
         <svg className="w-14 h-14 sm:w-20 sm:h-20 drop-shadow-md" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="48" fill="transparent" stroke="white" strokeWidth="2" strokeOpacity="0.8" />
+          <circle cx="50" cy="50" r="48" fill="white" stroke="#e5e7eb" strokeWidth="2" />
         </svg>
-        <div className="flex items-center gap-1.5 mt-1">
+        <div className="flex items-center justify-center mt-1">
           {countryCode && (
             <img 
-              src={`https://flagcdn.com/w20/${countryCode}.png`} 
+              src={`https://flagcdn.com/w40/${countryCode}.png`} 
               alt={`${label} flag`} 
-              className="w-3.5 h-2.5 sm:w-4 sm:h-3 object-cover rounded-sm"
+              className="w-6 h-4 sm:w-10 sm:h-7 object-cover rounded shadow-md"
             />
           )}
-          <span className="text-[9px] sm:text-xs text-white/80 tracking-widest uppercase font-mono text-center leading-tight">
-            {label}
-          </span>
         </div>
       </div>
     );
@@ -57,16 +54,16 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2">
       <svg className="w-14 h-14 sm:w-20 sm:h-20 drop-shadow-md" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="48" fill="transparent" stroke="white" strokeWidth="2" strokeOpacity="0.8" />
+        <circle cx="50" cy="50" r="48" fill="white" stroke="#e5e7eb" strokeWidth="2" />
         
         {/* Ticks */}
         {[...Array(12)].map((_, i) => (
           <line
             key={i}
-            x1="50" y1="8" x2="50" y2={i % 3 === 0 ? "14" : "11"}
-            stroke="white"
-            strokeWidth={i % 3 === 0 ? "2" : "1"}
-            strokeOpacity="0.6"
+            x1="50" y1="6" x2="50" y2={i % 3 === 0 ? "14" : "10"}
+            stroke="#1f2937"
+            strokeWidth={i % 3 === 0 ? "3" : "1.5"}
+            strokeOpacity="0.8"
             transform={`rotate(${i * 30} 50 50)`}
           />
         ))}
@@ -74,38 +71,35 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
         {/* Hour Hand */}
         <line
           x1="50" y1="50" x2="50" y2="28"
-          stroke="white" strokeWidth="3" strokeLinecap="round"
+          stroke="#111827" strokeWidth="4" strokeLinecap="round"
           transform={`rotate(${hourAngle} 50 50)`}
         />
         
         {/* Minute Hand */}
         <line
           x1="50" y1="50" x2="50" y2="18"
-          stroke="white" strokeWidth="2" strokeOpacity="0.9" strokeLinecap="round"
+          stroke="#374151" strokeWidth="3" strokeOpacity="0.9" strokeLinecap="round"
           transform={`rotate(${minuteAngle} 50 50)`}
         />
         
         {/* Second Hand */}
         <line
-          x1="50" y1="50" x2="50" y2="15"
-          stroke="#ef4444" strokeWidth="1" strokeLinecap="round"
+          x1="50" y1="50" x2="50" y2="12"
+          stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round"
           transform={`rotate(${secondAngle} 50 50)`}
         />
         
         {/* Center dot */}
-        <circle cx="50" cy="50" r="2.5" fill="white" />
+        <circle cx="50" cy="50" r="3" fill="#111827" />
       </svg>
-      <div className="flex items-center gap-1.5 mt-1">
+      <div className="flex items-center justify-center mt-1">
         {countryCode && (
           <img 
-            src={`https://flagcdn.com/w20/${countryCode}.png`} 
+            src={`https://flagcdn.com/w40/${countryCode}.png`} 
             alt={`${label} flag`} 
-            className="w-3.5 h-2.5 sm:w-4 sm:h-3 object-cover rounded-sm"
+            className="w-6 h-4 sm:w-10 sm:h-7 object-cover rounded shadow-md"
           />
         )}
-        <span className="text-[9px] sm:text-xs text-white/80 tracking-widest uppercase font-mono text-center leading-tight">
-          {label} {tzTime.getHours() >= 12 ? 'PM' : 'AM'}
-        </span>
       </div>
     </div>
   );
