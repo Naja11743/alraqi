@@ -188,7 +188,7 @@ export function BullionTVDashboard() {
       )}
 
       {/* TOP SECTION */}
-      <div className="flex flex-col lg:flex-row justify-between items-stretch gap-2 lg:gap-4 h-auto lg:h-[220px] flex-shrink-0">
+      <div className="flex flex-col lg:flex-row justify-between items-stretch gap-2 lg:gap-4 h-auto lg:h-[180px] flex-shrink-0">
         {/* Top Left: World Clocks */}
         <div className="hidden sm:flex w-full lg:w-[45%] h-24 lg:h-auto border border-[var(--color-gold-500)]/40 bg-black/40 rounded-lg relative overflow-hidden items-center justify-center">
              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-gold-900)]/20 to-transparent pointer-events-none"></div>
@@ -207,8 +207,8 @@ export function BullionTVDashboard() {
           </div>
           
           <div className="flex flex-col items-center order-1 sm:order-2 mt-1 sm:mt-0 flex-shrink-0">
-            <img src="/logo.png" alt="Al Raqi Logo" className="w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 object-contain mb-0 sm:mb-2 contrast-150 saturate-200 drop-shadow-[0_0_4px_rgba(212,160,28,0.8)]" />
-            <div className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[var(--color-gold-500)] tracking-[0.15em] leading-none uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] whitespace-nowrap">AL RAQI</div>
+            <img src="/logo.png" alt="Al Raqi Logo" className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-contain mb-0 sm:mb-2 contrast-150 saturate-200 drop-shadow-[0_0_4px_rgba(212,160,28,0.8)]" />
+            <div className="text-4xl sm:text-5xl lg:text-5xl font-serif font-bold text-[var(--color-gold-500)] tracking-[0.15em] leading-none uppercase drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] whitespace-nowrap">AL RAQI</div>
             <div className="text-[10px] sm:text-sm text-[var(--color-gold-400)]/70 uppercase tracking-[0.2em] sm:tracking-[0.4em] mt-1 whitespace-nowrap">Professional Bullion</div>
           </div>
 
@@ -230,7 +230,7 @@ export function BullionTVDashboard() {
               <span className="text-center tracking-[0.2em] uppercase border-l-2 border-black/60 drop-shadow-md">ASK</span>
             </div>
             
-            <div className="flex-1 p-2 sm:p-4 flex flex-col justify-center gap-y-2 sm:gap-y-4 relative min-h-0">
+            <div className="flex-1 p-2 sm:p-4 flex flex-col justify-center gap-y-1 sm:gap-y-2 relative min-h-0">
               {isLoading && (
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#0f0f0f]/80 backdrop-blur-sm">
                   <Loader2 className="w-8 h-8 text-[var(--color-gold-500)] animate-spin mb-4" />
