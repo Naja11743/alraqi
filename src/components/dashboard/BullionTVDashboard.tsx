@@ -230,7 +230,7 @@ export function BullionTVDashboard() {
               <span className="text-center tracking-[0.2em] uppercase border-l-2 border-black/60 drop-shadow-md">ASK</span>
             </div>
             
-            <div className="flex-1 p-2 sm:p-4 flex flex-col justify-center gap-y-4 sm:gap-y-6 relative min-h-0">
+            <div className="flex-1 p-2 sm:p-4 flex flex-col justify-center gap-y-2 sm:gap-y-4 relative min-h-0">
               {isLoading && (
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#0f0f0f]/80 backdrop-blur-sm">
                   <Loader2 className="w-8 h-8 text-[var(--color-gold-500)] animate-spin mb-4" />
@@ -251,7 +251,7 @@ export function BullionTVDashboard() {
                   <span className="text-[10px] sm:text-xs lg:text-sm text-[var(--color-gold-500)]/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.gold.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd?.gold.bid} className="text-base sm:text-lg lg:text-xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -260,7 +260,7 @@ export function BullionTVDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
+                  <FlashBox tick={rates?.timestamp} value={rates?.spotUsd ? rates.spotUsd.gold.bid + 0.50 : undefined} className="text-base sm:text-lg lg:text-xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.gold.bid + 0.50)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -280,7 +280,7 @@ export function BullionTVDashboard() {
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox value={rates?.spotUsd?.silver.bid} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
+                  <FlashBox value={rates?.spotUsd?.silver.bid} className="text-base sm:text-lg lg:text-xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid, 3)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
@@ -289,7 +289,7 @@ export function BullionTVDashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
-                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white">
+                  <FlashBox value={rates?.spotUsd ? rates.spotUsd.silver.bid + 0.030 : undefined} className="text-base sm:text-lg lg:text-xl xl:text-3xl font-bold text-white">
                     {rates?.spotUsd ? `$${fmt(rates.spotUsd.silver.bid + 0.030, 3)}` : '...'}
                   </FlashBox>
                   <div className="mt-1 sm:mt-2 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2 text-[9px] sm:text-[10px] lg:text-xs w-full">
