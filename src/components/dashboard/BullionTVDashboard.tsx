@@ -334,7 +334,7 @@ export function BullionTVDashboard() {
               <div key={idx} className={`flex items-center px-2 sm:px-4 lg:px-8 flex-1 ${idx !== 4 ? 'border-b border-[var(--color-gold-500)]/10' : ''} hover:bg-white/5 transition-colors`}>
                 <div className="w-[30%] flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-2 lg:space-x-3 pr-1 sm:pr-2">
                   <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-serif font-bold tracking-wide ${item.name === 'SILVER' ? 'text-gray-300' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
-                  <span className="text-[9px] sm:text-[10px] lg:text-xs xl:text-sm text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
+                  <span className="text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
                 </div>
                 <div className="w-[20%] text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
                 <div className="w-[25%] text-right text-[13px] sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-wider font-mono text-white border-l-2 border-black h-full px-1 sm:px-2 whitespace-nowrap">{rates ? fmtAed(item.buy, item.weight === '1 GM' ? 2 : 0) : '...'}</div>
