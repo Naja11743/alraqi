@@ -158,20 +158,9 @@ export function BullionTVDashboard() {
     (currentTime.getDay() === 1 && currentTime.getHours() < 2)
   );
 
-  let countdownText = "Market is closed. opens soon!";
+  let countdownText = "Market is closed. opens at Monday 2:00 AM";
   if (isMarketClosed) {
-    const nextOpenTime = new Date(currentTime);
-    if (currentTime.getDay() === 6) nextOpenTime.setDate(currentTime.getDate() + 2);
-    else if (currentTime.getDay() === 0) nextOpenTime.setDate(currentTime.getDate() + 1);
-    nextOpenTime.setHours(2, 0, 0, 0);
-
-    const diffMs = nextOpenTime.getTime() - currentTime.getTime();
-    if (diffMs > 0) {
-      const d = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-      countdownText = `${d > 0 ? d + 'd ' : ''}${h > 0 || d > 0 ? h + 'h ' : ''}${m}m Market is closed. opens soon!`;
-    }
+    countdownText = "Market is closed. opens at Monday 2:00 AM";
   }
 
   return (
