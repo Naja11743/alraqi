@@ -58,6 +58,10 @@ export function BullionTVDashboard() {
 
     // 1. Initial REST fetch to seed all commodity prices
     const fetchInitialRates = async () => {
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+      const isClosed = now.getDay() === 6 || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
+      if (isClosed && isInitialFetchDone) return; // Fetch once if closed, then skip polling
+
       try {
         const res = await fetch('/api/rates', { cache: 'no-store' });
         if (!res.ok) throw new Error('API Error');
@@ -82,6 +86,10 @@ export function BullionTVDashboard() {
     // 2. Local simulation loop for guaranteed continuous flashing effect
     const simInterval = setInterval(() => {
       if (!isInitialFetchDone) return;
+      
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+      const isClosed = now.getDay() === 6 || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
+      if (isClosed) return; // Suspend flashing if market is closed
       
       const tickTime = new Date().toISOString() + Math.random().toString();
       
@@ -144,9 +152,37 @@ export function BullionTVDashboard() {
   const fmt = (num: number, dec = 2) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: false });
   const fmtAed = (num: number, dec = 0) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
+  const isMarketClosed = mounted && (
+    currentTime.getDay() === 6 || 
+    currentTime.getDay() === 0 || 
+    (currentTime.getDay() === 1 && currentTime.getHours() < 2)
+  );
+
+  let countdownText = "";
+  if (isMarketClosed) {
+    const nextOpenTime = new Date(currentTime);
+    if (currentTime.getDay() === 6) nextOpenTime.setDate(currentTime.getDate() + 2);
+    else if (currentTime.getDay() === 0) nextOpenTime.setDate(currentTime.getDate() + 1);
+    nextOpenTime.setHours(2, 0, 0, 0);
+
+    const diffMs = nextOpenTime.getTime() - currentTime.getTime();
+    if (diffMs > 0) {
+      const d = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+      countdownText = `${d > 0 ? d + 'd ' : ''}${h}h ${m}m Market closed`;
+    }
+  }
+
   return (
-    <div className="w-full min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden flex flex-col p-2 sm:p-4 gap-4 font-sans max-w-[100vw]">
+    <div className="w-full min-h-screen bg-[#0a0a0a] text-white overflow-hidden flex flex-col p-2 sm:p-4 gap-4 font-sans max-w-[100vw] relative">
       
+      {isMarketClosed && (
+        <div className="fixed top-12 -left-20 w-[350px] bg-red-600 text-white font-bold text-center py-2 sm:py-3 transform -rotate-45 z-[100] shadow-[0_0_20px_rgba(220,38,38,0.5)] border-y-2 border-red-400/50 flex items-center justify-center tracking-widest uppercase text-xs sm:text-sm lg:text-base pointer-events-none">
+          {countdownText}
+        </div>
+      )}
+
       {/* TOP SECTION */}
       <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4 lg:min-h-[22vh] flex-shrink-0">
         {/* Top Left: World Clocks */}
