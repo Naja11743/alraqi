@@ -175,7 +175,7 @@ export function BullionTVDashboard() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-[#0a0a0a] text-white overflow-hidden flex flex-col p-2 sm:p-4 gap-4 font-sans max-w-[100vw] relative">
+    <div className="w-full h-screen max-h-screen bg-[#0a0a0a] text-white overflow-hidden flex flex-col p-2 sm:p-4 gap-2 lg:gap-4 font-sans max-w-[100vw] relative">
       
       {isMarketClosed && (
         <div className="fixed top-12 -left-20 w-[350px] bg-red-600 text-white font-bold py-2 sm:py-3 transform -rotate-45 z-[100] shadow-[0_0_20px_rgba(220,38,38,0.5)] border-y-2 border-red-400/50 pointer-events-none overflow-hidden flex items-center">
@@ -188,7 +188,7 @@ export function BullionTVDashboard() {
       )}
 
       {/* TOP SECTION */}
-      <div className="flex flex-col lg:flex-row justify-between items-stretch gap-4 lg:min-h-[22vh] flex-shrink-0">
+      <div className="flex flex-col lg:flex-row justify-between items-stretch gap-2 lg:gap-4 h-[18vh] lg:h-[22vh] flex-shrink-0">
         {/* Top Left: World Clocks */}
         <div className="hidden sm:flex w-full lg:w-[45%] h-24 lg:h-auto border border-[var(--color-gold-500)]/40 bg-black/40 rounded-lg relative overflow-hidden items-center justify-center">
              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-gold-900)]/20 to-transparent pointer-events-none"></div>
@@ -219,11 +219,11 @@ export function BullionTVDashboard() {
       </div>
 
       {/* MIDDLE SECTION */}
-      <div className="flex-1 flex flex-col lg:flex-row gap-4 min-h-0">
+      <div className="flex-1 flex flex-col lg:flex-row gap-2 lg:gap-4 min-h-0">
         
         {/* Left: Spot Rate & Sentiment */}
-        <div className="w-full lg:w-[45%] flex flex-col gap-4 h-full">
-          <div className="flex-1 border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden min-h-[250px]">
+        <div className="w-full lg:w-[45%] flex flex-col gap-2 lg:gap-4 h-full min-h-0">
+          <div className="flex-1 border border-[var(--color-gold-500)]/40 rounded-lg flex flex-col bg-[#0f0f0f] overflow-hidden min-h-0">
             <div className="grid grid-cols-[30%_35%_35%] bg-gradient-to-r from-[#d97706] via-[#facc15] to-[#d97706] text-black font-black text-sm sm:text-base lg:text-lg py-2 sm:py-3 px-2 sm:px-4 items-center shadow-[0_4px_15px_rgba(250,204,21,0.4)] border-b-2 border-[#facc15]/60">
               <span className="text-left tracking-[0.2em] uppercase drop-shadow-md">SPOT RATE</span>
               <span className="text-center tracking-[0.2em] uppercase border-l-2 border-black/60 drop-shadow-md">BID</span>
@@ -302,8 +302,8 @@ export function BullionTVDashboard() {
           </div>
 
           {/* Buyers vs Sellers */}
-          <div className="border border-[var(--color-gold-500)]/40 rounded-lg p-4 sm:p-6 h-auto sm:h-[140px] bg-[#0f0f0f] flex flex-col justify-center shadow-[0_0_15px_rgba(212,160,28,0.05)] flex-shrink-0">
-            <div className="flex justify-between text-[10px] sm:text-xs text-[var(--color-gold-400)] mb-3 sm:mb-4 uppercase tracking-widest font-bold">
+          <div className="border border-[var(--color-gold-500)]/40 rounded-lg p-2 sm:p-4 h-[12vh] sm:h-[15vh] bg-[#0f0f0f] flex flex-col justify-center shadow-[0_0_15px_rgba(212,160,28,0.05)] flex-shrink-0">
+            <div className="flex justify-between text-[10px] sm:text-xs text-[var(--color-gold-400)] mb-2 sm:mb-3 uppercase tracking-widest font-bold">
               <span>BUYERS</span>
               <span>SELLERS</span>
             </div>
@@ -327,7 +327,7 @@ export function BullionTVDashboard() {
             <span className="w-[25%] text-right tracking-[0.2em] border-l-2 border-black/60 drop-shadow-md">SELL <span className="text-[9px] sm:text-[10px] lg:text-xs font-bold opacity-90 drop-shadow-sm">AED</span></span>
           </div>
           
-          <div className="flex-1 flex flex-col py-1 sm:py-2 lg:py-4 overflow-hidden min-h-[300px]">
+          <div className="flex-1 flex flex-col py-1 sm:py-2 lg:py-4 overflow-hidden min-h-0">
             {[
               { name: 'GOLD', detail: '9999', weight: '1 GM', 
                 buy: rates ? (rates.gold['24K']) - 0.5 : 0, 
@@ -361,7 +361,7 @@ export function BullionTVDashboard() {
       </div>
 
       {/* BOTTOM SECTION: News Ticker */}
-      <div className="h-[50px] sm:h-[70px] border border-[var(--color-gold-500)]/40 rounded-lg flex items-stretch overflow-hidden bg-[#0f0f0f] shadow-[0_0_15px_rgba(212,160,28,0.05)] flex-shrink-0 w-full">
+      <div className="h-[6vh] sm:h-[8vh] border border-[var(--color-gold-500)]/40 rounded-lg flex items-stretch overflow-hidden bg-[#0f0f0f] shadow-[0_0_15px_rgba(212,160,28,0.05)] flex-shrink-0 w-full">
         <div className="bg-[var(--color-gold-900)]/40 border-r border-[var(--color-gold-500)]/40 text-[var(--color-gold-300)] flex flex-col justify-center px-4 sm:px-8 min-w-fit z-10 py-1 sm:py-2">
           <span className="text-[10px] sm:text-xs tracking-widest uppercase font-bold">Al Raqi</span>
           <span className="text-[10px] sm:text-xs tracking-widest uppercase font-bold">News</span>
