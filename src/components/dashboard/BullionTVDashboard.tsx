@@ -262,7 +262,7 @@ export function BullionTVDashboard() {
               {/* Silver Row */}
               <div className="grid grid-cols-[30%_35%_35%] items-center">
                 <div className="flex flex-col">
-                  <span className="text-2xl lg:text-3xl xl:text-4xl font-serif font-bold text-gray-300 leading-none">SILVER</span>
+                  <span className="text-2xl lg:text-3xl xl:text-4xl font-serif font-bold text-[#c0c0c0] leading-none">SILVER</span>
                   <span className="text-[10px] sm:text-xs lg:text-sm text-gray-500/60 font-sans tracking-widest uppercase mt-1">Oz</span>
                 </div>
                 <div className="flex flex-col items-center px-1 border-l-2 border-black h-full">
@@ -333,7 +333,7 @@ export function BullionTVDashboard() {
             ].map((item, idx) => (
               <div key={idx} className={`flex items-center px-2 sm:px-4 lg:px-8 flex-1 ${idx !== 4 ? 'border-b border-[var(--color-gold-500)]/10' : ''} hover:bg-white/5 transition-colors`}>
                 <div className="w-[30%] flex flex-col sm:flex-row sm:items-baseline space-y-1 sm:space-y-0 sm:space-x-2 lg:space-x-3 pr-1 sm:pr-2">
-                  <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-serif font-bold tracking-wide ${item.name === 'SILVER' ? 'text-gray-300' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
+                  <span className={`text-sm sm:text-xl lg:text-2xl xl:text-3xl font-serif font-bold tracking-wide ${item.name === 'SILVER' ? 'text-[#c0c0c0]' : 'text-[var(--color-gold-400)]'}`}>{item.name}</span>
                   <span className="text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-300 font-bold font-mono tracking-wider whitespace-nowrap">{item.detail}</span>
                 </div>
                 <div className="w-[20%] text-center text-xs sm:text-lg lg:text-xl xl:text-2xl text-gray-400 font-bold font-mono border-l-2 border-black h-full px-1 sm:px-2">{item.weight}</div>
