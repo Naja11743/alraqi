@@ -92,15 +92,15 @@ export function AnalogClock({ timezone, label, countryCode }: { timezone: string
         {/* Center dot */}
         <circle cx="50" cy="50" r="3" fill="#111827" />
       </svg>
-      <div className="flex items-center justify-center mt-2 gap-2">
+      <div className="flex items-center justify-center mt-3 gap-2 sm:gap-3">
         {countryCode && (
           <img 
-            src={`https://flagcdn.com/w80/${countryCode}.png`} 
+            src={`https://flagcdn.com/w160/${countryCode}.png`} 
             alt={`${label} flag`} 
-            className="w-8 h-6 sm:w-14 sm:h-10 object-cover rounded shadow-md"
+            className="w-12 h-8 sm:w-20 sm:h-14 object-cover rounded-md shadow-lg"
           />
         )}
-        <span className="text-[10px] sm:text-sm text-white/90 font-bold tracking-widest bg-black/40 px-1.5 py-0.5 rounded">
+        <span className="text-xs sm:text-base text-white/90 font-bold tracking-widest bg-black/40 px-2 py-1 rounded">
           {tzTime.getHours() >= 12 ? 'PM' : 'AM'}
         </span>
       </div>
