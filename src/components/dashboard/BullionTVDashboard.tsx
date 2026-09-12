@@ -59,7 +59,7 @@ export function BullionTVDashboard() {
     // 1. Initial REST fetch to seed all commodity prices
     const fetchInitialRates = async () => {
       const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
-      const isClosed = now.getDay() === 6 || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
+      const isClosed = (now.getDay() === 6 && now.getHours() >= 1) || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
       if (isClosed && isInitialFetchDone) return; // Fetch once if closed, then skip polling
 
       try {
@@ -88,7 +88,7 @@ export function BullionTVDashboard() {
       if (!isInitialFetchDone) return;
       
       const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
-      const isClosed = now.getDay() === 6 || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
+      const isClosed = (now.getDay() === 6 && now.getHours() >= 1) || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
       if (isClosed) return; // Suspend flashing if market is closed
       
       const tickTime = new Date().toISOString() + Math.random().toString();
@@ -153,7 +153,7 @@ export function BullionTVDashboard() {
   const fmtAed = (num: number, dec = 0) => num.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
   const isMarketClosed = mounted && (
-    currentTime.getDay() === 6 || 
+    (currentTime.getDay() === 6 && currentTime.getHours() >= 1) || 
     currentTime.getDay() === 0 || 
     (currentTime.getDay() === 1 && currentTime.getHours() < 2)
   );
