@@ -17,12 +17,14 @@ interface Rates {
   };
   spotUsd?: {
     gold: {
+      spot?: number;
       bid: number;
       ask: number;
       low: number;
       high: number;
     };
     silver: {
+      spot?: number;
       bid: number;
       ask: number;
       low: number;
