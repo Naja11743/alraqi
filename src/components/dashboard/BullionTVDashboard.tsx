@@ -83,7 +83,70 @@ export function BullionTVDashboard() {
     fetchInitialRates();
     pollInterval = setInterval(fetchInitialRates, 30000);
 
+    // 2. Local simulation loop for guaranteed continuous flashing effect and color changes
+    const simInterval = setInterval(() => {
+      if (!isInitialFetchDone) return;
+      
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+      const isClosed = (now.getDay() === 6 && now.getHours() >= 1) || now.getDay() === 0 || (now.getDay() === 1 && now.getHours() < 2);
+      if (isClosed) return; // Suspend flashing if market is closed
+      
+      const tickTime = new Date().toISOString() + Math.random().toString();
+      
+      setRates(prev => {
+        if (!prev) return prev;
+        if (prev.status === 'stale') return prev; // Don't simulate if data is stale
+        
+        const usdToAed = 3.6725;
+        const gramsPerOz = 31.1034768;
+        const GOLD_PREMIUM_AED = 7;
+        
+        // Apply a micro fluctuation to simulate live ticking visually until the next REST poll
+        const currentSpot = prev.spotUsd?.gold?.spot || 4337.00;
+        const simulatedLiveGold = currentSpot + (Math.random() - 0.5) * 0.5;
+        
+        const currentSilverSpot = prev.spotUsd?.silver?.spot || 65.00;
+        const simulatedLiveSilver = currentSilverSpot + (Math.random() - 0.5) * 0.05;
+        
+        const baseGoldAedPerGram24K = (simulatedLiveGold / gramsPerOz) * usdToAed;
+        const goldAedPerGram24K = baseGoldAedPerGram24K + GOLD_PREMIUM_AED;
+        const silverAedPerGram999 = (simulatedLiveSilver / gramsPerOz) * usdToAed;
+        
+        return {
+          ...prev,
+          gold: {
+            '24K': goldAedPerGram24K,
+            '22K': goldAedPerGram24K * (22 / 24),
+            '21K': goldAedPerGram24K * (21 / 24),
+            '18K': goldAedPerGram24K * (18 / 24),
+          },
+          silver: {
+            '999': silverAedPerGram999,
+          },
+          spotUsd: {
+            ...prev.spotUsd,
+            gold: {
+              spot: simulatedLiveGold,
+              bid: simulatedLiveGold,
+              ask: simulatedLiveGold,
+              low: prev.spotUsd?.gold?.low || simulatedLiveGold - 10,
+              high: prev.spotUsd?.gold?.high || simulatedLiveGold + 10
+            },
+            silver: {
+              spot: simulatedLiveSilver,
+              bid: simulatedLiveSilver,
+              ask: simulatedLiveSilver,
+              low: prev.spotUsd?.silver?.low || simulatedLiveSilver - 1,
+              high: prev.spotUsd?.silver?.high || simulatedLiveSilver + 1
+            }
+          },
+          timestamp: tickTime
+        };
+      });
+    }, 1500); // Tick every 1.5 seconds
+
     return () => {
+      clearInterval(simInterval);
       clearInterval(pollInterval);
     };
   }, []);
