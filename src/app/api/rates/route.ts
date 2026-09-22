@@ -8,55 +8,13 @@ let previousSilverPrice = 0;
 
 export async function GET() {
   try {
-    const [goldRes, silverRes] = await Promise.all([
-      fetch('https://api.goldprice.dev/v1/prices?symbol=XAU-USD-SPOT', { cache: 'no-store' }),
-      fetch('https://api.gold-api.com/price/XAG/USD', { cache: 'no-store' })
-    ]);
-
-    let goldPriceUsd = previousGoldPrice > 0 ? previousGoldPrice : 4381.50;
-    let silverPriceUsd = previousSilverPrice > 0 ? previousSilverPrice : 28.30;
-    let isSimulated = false;
-
-    if (goldRes.ok) {
-      try {
-        const goldData = await goldRes.json();
-        if (goldData.symbols && goldData.symbols.length > 0 && goldData.symbols[0].symbol === 'XAU' && goldData.symbols[0].quote_currency === 'USD') {
-          const parsedPrice = parseFloat(goldData.symbols[0].price);
-          // Validate that the price hasn't jumped abnormally (> 20% change)
-          if (!(previousGoldPrice > 0 && Math.abs(parsedPrice - previousGoldPrice) / previousGoldPrice > 0.2)) {
-            goldPriceUsd = parsedPrice;
-          } else {
-            console.warn(`Abnormal Gold price jump detected: ${previousGoldPrice} -> ${parsedPrice}`);
-          }
-        }
-      } catch (e) {
-        console.error("Gold parsing error:", e);
-        isSimulated = true;
-      }
-    } else {
-      console.error(`Gold API failed: ${goldRes.status}`);
-      isSimulated = true;
-    }
-
-    if (silverRes.ok) {
-      try {
-        const silverData = await silverRes.json();
-        if (silverData.currency === 'USD' && silverData.symbol === 'XAG') {
-          const parsedPrice = silverData.price;
-          if (!(previousSilverPrice > 0 && Math.abs(parsedPrice - previousSilverPrice) / previousSilverPrice > 0.2)) {
-            silverPriceUsd = parsedPrice;
-          } else {
-            console.warn(`Abnormal Silver price jump detected: ${previousSilverPrice} -> ${parsedPrice}`);
-          }
-        }
-      } catch (e) {
-        console.error("Silver parsing error:", e);
-        isSimulated = true;
-      }
-    } else {
-      console.error(`Silver API failed: ${silverRes.status}`);
-      isSimulated = true;
-    }
+    const res = await fetch('https://xaus.com/api/v1/spot', { cache: 'no-store' });
+    if (!res.ok) throw new Error('XAUS API Error');
+    const data = await res.json();
+    
+    let goldPriceUsd = data.spot_usd_oz;
+    let silverPriceUsd = data.silver_usd_oz;
+    let isStale = data.stale === true || (data.data_state && data.data_state.status !== 'fresh');
 
     // Update previous prices for next validation
     previousGoldPrice = goldPriceUsd;
@@ -66,8 +24,10 @@ export async function GET() {
     // 1 Troy Ounce = 31.1034768 grams, AED/USD pegged at 3.6725
     const usdToAed = 3.6725;
     const gramsPerOz = 31.1034768;
+    const GOLD_PREMIUM_AED = 7; // Fixed premium for Dubai retail market
 
-    const goldAedPerGram24K = (goldPriceUsd / gramsPerOz) * usdToAed;
+    const baseGoldAedPerGram24K = (goldPriceUsd / gramsPerOz) * usdToAed;
+    const goldAedPerGram24K = baseGoldAedPerGram24K + GOLD_PREMIUM_AED;
 
     const liveRates = {
       gold: {
@@ -95,8 +55,8 @@ export async function GET() {
           high: silverPriceUsd
         }
       },
-      timestamp: new Date().toISOString(),
-      status: isSimulated ? 'simulated_fallback' : 'success'
+      timestamp: data.updated_at || new Date().toISOString(),
+      status: isStale ? 'stale' : 'fresh'
     };
 
     return NextResponse.json(liveRates);
@@ -106,15 +66,18 @@ export async function GET() {
     // Simulate a slight fluctuation to keep the UI alive and show the flash effect
     // Removed random fluctuation
     
-    const fallbackGold = previousGoldPrice > 0 ? previousGoldPrice : 4381.50;
-    const fallbackSilver = previousSilverPrice > 0 ? previousSilverPrice : 28.30;
+    const fallbackGold = previousGoldPrice > 0 ? previousGoldPrice : 4350.00;
+    const fallbackSilver = previousSilverPrice > 0 ? previousSilverPrice : 66.00;
     
     previousGoldPrice = fallbackGold;
     previousSilverPrice = fallbackSilver;
     
     const usdToAed = 3.6725;
     const gramsPerOz = 31.1034768;
-    const goldAedPerGram24K = (fallbackGold / gramsPerOz) * usdToAed;
+    const GOLD_PREMIUM_AED = 7;
+    
+    const baseGoldAedPerGram24K = (fallbackGold / gramsPerOz) * usdToAed;
+    const goldAedPerGram24K = baseGoldAedPerGram24K + GOLD_PREMIUM_AED;
 
     return NextResponse.json({
       gold: {
